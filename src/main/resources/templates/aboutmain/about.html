@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+	<style>
+</style>
+</th:block>
+<div layout:fragment="content">
+
+	<section class="hero-wrap hero-wrap-2"
+		style="background-image: url('/images/bg_2.jpg')"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="/">Home
+								<i class="ion-ios-arrow-forward"></i>
+						</a></span> <span>/ 회사 소개<i class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">회사 소개</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section ftco-no-pt ftco-no-pb">
+		<div class="container">
+			<div class="row d-flex no-gutters">
+				<div class="col-md-5 d-flex">
+					<div
+						class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0"
+						style="background-image: url(/images/about-1.jpg)"></div>
+				</div>
+				<div class="col-md-7 pl-md-5 py-md-5">
+					<div class="heading-section pt-md-5">
+						<h2 class="mb-4">저희 회사를 선택한 이유는?</h2>
+					</div>
+					<div class="row">
+						<div class="col-md-6 services-2 w-100 d-flex">
+							<div
+								class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-stethoscope"></span>
+							</div>
+							<div class="text pl-3">
+								<h4>동물 케어</h4>
+								<p>어디서든지 통화로 혹은 출장 서비스를 통해서 확실한 케어를 합니다.</p>
+							</div>
+						</div>
+						<div class="col-md-6 services-2 w-100 d-flex">
+							<div
+								class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-customer-service"></span>
+							</div>
+							<div class="text pl-3">
+								<h4>고객 지원</h4>
+								<p>고객센터를 통해서 불편 사항, 건의 사항을 편하게 질문할수 있다.</p>
+							</div>
+						</div>
+						<div class="col-md-6 services-2 w-100 d-flex">
+							<div
+								class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-emergency-call"></span>
+							</div>
+							<div class="text pl-3">
+								<h4>긴급 서비스</h4>
+								<p>긴급 출동 서비스를 통해서 동물에게 긴급 상황이 생기면 언제든지 출동대기.</p>
+							</div>
+						</div>
+						<div class="col-md-6 services-2 w-100 d-flex">
+							<div
+								class="icon d-flex align-items-center justify-content-center">
+								<span class="flaticon-veterinarian"></span>
+							</div>
+							<div class="text pl-3">
+								<h4>수의사 병원안내</h4>
+								<p>확실하고 인증된 전문 병원과 연결 시켜주면서 확실하고 안정된 케어를 하게 도와줌</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-counter" id="section-counter">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18 text-center">
+						<div class="text">
+							<strong class="number" data-number="53133">0</strong>
+						</div>
+						<div class="text">
+							<span>누적 회원수</span>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18 text-center">
+						<div class="text">
+							<strong class="number" data-number="521">0</strong>
+						</div>
+						<div class="text">
+							<span>전문의</span>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18 text-center">
+						<div class="text">
+							<strong class="number" data-number="4140">0</strong>
+						</div>
+						<div class="text">
+							<span>현재까지 분양수</span>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+					<div class="block-18 text-center">
+						<div class="text">
+							<strong class="number" data-number="2504">0</strong>
+						</div>
+						<div class="text">
+							<span>분양 가능동물</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section bg-light ftco-faqs">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 order-md-last">
+					<div
+						class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0"
+						style="background-image: url(/images/about.jpg)"></div>
+
+					<div class="d-flex mt-3">
+						<div class="img img-2 mr-md-2"
+							style="background-image: url(/images/about-2.jpg)"></div>
+						<div class="img img-2 ml-md-2"
+							style="background-image: url(/images/about-3.jpg)"></div>
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="heading-section mb-5 mt-5 mt-lg-0">
+						<h2 class="mb-3">자주 하는 질문</h2>
+
+					</div>
+					<div id="accordion" class="myaccordion w-100"
+						aria-multiselectable="true">
+						<div class="card">
+							<div class="card-header p-0" id="headingOne">
+								<h2 class="mb-0">
+									<button href="#collapseOne"
+										class="d-flex py-3 px-4 align-items-center justify-content-between btn btn-link"
+										data-parent="#accordion" data-toggle="collapse"
+										aria-expanded="true" aria-controls="collapseOne">
+										<p class="mb-0">강아지 배변 훈련 방법</p>
+										<i class="fa" aria-hidden="true"></i>
+									</button>
+								</h2>
+							</div>
+							<div class="collapse show" id="collapseOne" role="tabpanel"
+								aria-labelledby="headingOne">
+								<div class="card-body py-3 px-0">
+									<ol>
+										<li>강아지가 배변하려고 할 때 올바른 위치로 데려간다.</li>
+										<li>익숙해 질 수 있도록 정해진 배변 위치에 가면 간식 보상을 준다.</li>
+										<li>올바른 위치에 배변 했을 때 바로 칭찬해준다.</li>
+										<li>잘못된 곳에 배변을 해도 즉각적으로 혼내지 않는다.</li>
+										<li>빠르게 이동할 수 있도록 배변패드 또는 배변판을 여러 곳에 비치한다.</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header p-0" id="headingTwo" role="tab">
+								<h2 class="mb-0">
+									<button href="#collapseTwo"
+										class="d-flex py-3 px-4 align-items-center justify-content-between btn btn-link"
+										data-parent="#accordion" data-toggle="collapse"
+										aria-expanded="false" aria-controls="collapseTwo">
+										<p class="mb-0">반려동물 집에서 키울떄 필요한 점들</p>
+										<i class="fa" aria-hidden="true"></i>
+									</button>
+								</h2>
+							</div>
+							<div class="collapse" id="collapseTwo" role="tabpanel"
+								aria-labelledby="headingTwo">
+								<div class="card-body py-3 px-0">
+									<ol>
+										<li>사람이 사용하는 용품이 아닌 각 발려동물에게 맞는 용품을 잘 선택해 준비해야한다.</li>
+										<li>반려동물의 전용 샴푸를 사용하도록 하고 피부 상태에 따라 주기 조절 해줘야한다.</li>
+										<li>반려동물과 산책과 놀이를 하지 않을 경우 스트레스로 인하여 우울증혹은 문제행동을 일으킬 수
+											있다.</li>
+										<li>예방 접종을 주기적으로 해야한다. 반려 동물에 따라서 시기에 맞게 접종을 해야한다</li>
+										<li>털이 있는 동물들은 털의 유형에 맞게 빗질을 해주므로서 피부나 털의 오염을 제거한다.</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+
+						<div class="card">
+							<div class="card-header p-0" id="headingThree" role="tab">
+								<h2 class="mb-0">
+									<button href="#collapseThree"
+										class="d-flex py-3 px-4 align-items-center justify-content-between btn btn-link"
+										data-parent="#accordion" data-toggle="collapse"
+										aria-expanded="false" aria-controls="collapseThree">
+										<p class="mb-0">회사 서비스에 대해</p>
+										<i class="fa" aria-hidden="true"></i>
+									</button>
+								</h2>
+							</div>
+							<div class="collapse" id="collapseThree" role="tabpanel"
+								aria-labelledby="headingTwo">
+								<div class="card-body py-3 px-0">
+									<ol>
+										<li>고객센터 상담 시간은 9AM ~ 12PM 입니다.</li>
+										<li>긴급 출동 시간은 24시간입니다(거리에 따라 소요시간이 달라집니다.)</li>
+										<li>분양 정보를 입력하실 때는 상세하게 입력해주세요</li>
+										<li>돌보미 신청하시는 분들은 관련 자격증을 꼭 지참해주세요.</li>
+										<li>전문의분들과 연결 해드릴때 병원 사정따라 조금 거리가 생길수도 있습니다.</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section testimony-section"
+		style="background-image: url('images/bg_2.jpg')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center pb-5 mb-3">
+				<div class="col-md-7 heading-section text-center ftco-animate">
+					<h2>전문가들의 애완동물 명언</h2>
+				</div>
+			</div>
+			<div class="row ftco-animate">
+				<div class="col-md-12">
+					<div class="carousel-testimony owl-carousel ftco-owl">
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-quote-left"></span>
+								</div>
+								<div class="text">
+									<p class="mb-4">제지하고 통제할 수 있는 사람이 칭찬할 수 있는 거에요. 통제할 수 없는
+										사람이 칭찬하게 되면 그 칭찬이 우스워져요. 그런데 통제할 수 있는 사람이 칭찬하면 감동이 돼요</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img"
+											style="background-image: url(images/person_1.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">강형욱</p>
+											<span class="position">애견 전문가</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-quote-left"></span>
+								</div>
+								<div class="text">
+									<p class="mb-4">정의로운 인생을 추구하는 사람이라면 첫 번째 행동은 동물 학대를 금지하는
+										것이다.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img"
+											style="background-image: url(images/person_2.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">레오 톨스토이</p>
+											<span class="position">철학자</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-quote-left"></span>
+								</div>
+								<div class="text">
+									<p class="mb-4">한 나라의 위대함과 도덕성은 동물을 대하는 태도로 판단할수 있다.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img"
+											style="background-image: url(images/person_3.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">마하트마 간디</p>
+											<span class="position">인도 독립운동가</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-quote-left"></span>
+								</div>
+								<div class="text">
+									<p class="mb-4">인간에게는 동물을 다스릴 권리가 있는 것이 아니라 모든 생명체를 지킬 의무가
+										있다</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img"
+											style="background-image: url(images/person_4.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">제인 구달</p>
+											<span class="position">동물 학자</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-quote-left"></span>
+								</div>
+								<div class="text">
+									<p class="mb-4">사람 사이의 신뢰는 깨지기 쉽다. 그러나 개는 결코 우리를 배신하지 않는다.
+									</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img"
+											style="background-image: url(images/person_5.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">1004ADT</p>
+											<span class="position">유기견 후원 브랜드</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+</div>
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript"></script>
+</th:block>
+</html>
