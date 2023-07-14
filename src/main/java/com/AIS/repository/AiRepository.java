@@ -11,8 +11,15 @@ import com.AIS.Dto.AiRankDto;
 import com.AIS.constant.AiSellStatus;
 import com.AIS.entity.Ai;
 
+
 public interface AiRepository extends JpaRepository<Ai, Long>,
 AiRepositoryCustom{
+	
+	//JPQL(native 쿼리) -> h2 데이터베이스를 기준으로한 쿼리문작성
+	@Query("select i from Ai i where i.price >= :price")
+	List<Ai> findByprice(@Param("price") int price);
+	
+
 		@Query("select i from Ai i where i.aiNm = :aiNm and i.aiSellStatus = :sell")
 		List<Ai> getAiNmAndAiSellStatus(@Param("aiNm") String aiNm, @Param("sell") AiSellStatus sell);
 		

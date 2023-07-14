@@ -27,15 +27,15 @@
 				<div class="col-md-12">
 					<h2 class="h3 mb-3 text-black">상품등록</h2>
 					<div class="p-3 p-lg-5 border">
-						<form role="form" action="/admin/item/new" method="post"
-							enctype="multipart/form-data" th:object="${itemFormDto}"
-							name="itemForm">
+						<form role="form" action="/admin/ai/new" method="post"
+							enctype="multipart/form-data" th:object="${aiFormDto}"
+							name="aiForm">
 
 							<input type="hidden" th:field="*{id}" />
 
 							<div class="form-group row">
 								<div class="col-md-12">
-									<select class="form-select" th:field="*{itemSellStatus}">
+									<select class="form-select" th:field="*{aiSellStatus}">
 										<option value="SELL">판매중</option>
 										<option value="SOLD_OUT">품절</option>
 									</select>
@@ -44,11 +44,11 @@
 
 							<div class="form-group row">
 								<div class="col-md-12">
-									<label th:for="itemNm" class="text-black">상품명</label> <input
-										type="text" class="form-control" th:field="*{itemNm}"
+									<label th:for="aiNm" class="text-black">상품명</label> <input
+										type="text" class="form-control" th:field="*{aiNm}"
 										placeholder="상품명 입력">
 									<p th:if="${#fields.hasErrors('stockNumber')}"
-										th:errors="*{itemNm}" class="fieldError">Incorrect Data</p>
+										th:errors="*{aiNm}" class="fieldError">Incorrect Data</p>
 								</div>
 							</div>
 
@@ -75,11 +75,11 @@
 
 							<div class="form-group row">
 								<div class="col-md-12">
-									<label th:for="itemDetail" class="text-black">상품 상세내용</label>
-									<textarea rows=10 class="form-control" th:field="*{itemDetail}"
+									<label th:for="aiDetail" class="text-black">상품 상세내용</label>
+									<textarea rows=10 class="form-control" th:field="*{aiDetail}"
 										placeholder="상품 상세내용" id="floatingTextarea"></textarea>
 									<p th:if="${#fields.hasErrors('stockNumber')}"
-										th:errors="*{itemDetail}" class="fieldError">Incorrect
+										th:errors="*{aiDetail}" class="fieldError">Incorrect
 										Data</p>
 								</div>
 							</div>
@@ -90,7 +90,7 @@
 								<div class="col-md-12">
 									<label for="formFile" class="form-label"
 										th:text="상품이미지 + ${num}"></label> <input class="form-control"
-										type="file" id="itemImgFile" name="itemImgFile">
+										type="file" id="aiImgFile" name="aiImgFile">
 								</div>
 							</div>
 
@@ -139,7 +139,7 @@
 	
 	//상품등록 버튼을 누를때 천단위 콤마를 제거해준다.
 	function beforeSubmit(){
-		const f = document.itemForm;
+		const f = document.aiForm;
 		let price = f.price.value;
 		f.price.value =  Number(price.replaceAll(',',''));
 		f.submit();
