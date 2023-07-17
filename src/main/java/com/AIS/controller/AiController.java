@@ -48,7 +48,7 @@ public class AiController {
 	public String aiForm(Model model) {
 		model.addAttribute("aiFormDto", new AiFormDto());
 		
-		return "ai/AiForm";
+		return "ai/aiForm";
 	}
 	
 	//상품 상세 페이지
@@ -68,7 +68,7 @@ public class AiController {
 		//상품등록전에 첫번째 이미지가 있는지 없느지 검사(첫번째 이미지는 필수 입력값)
 		if(aiImgFileList.get(0).isEmpty()) {
 			model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입니다.");
-			return "ai/AiForm";
+			return "ai/aiForm";
 		}
 		
 		try {
@@ -76,7 +76,7 @@ public class AiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errorMessage",  "상품 등록 중 에러가 발생했습니다.");
-			return "ai/AiForm";
+			return "ai/aiForm";
 		}
 		
 		return "redirect:/";
@@ -97,7 +97,7 @@ public class AiController {
 			model.addAttribute("aiSearchDto", aiSearchDto);
 			model.addAttribute("maxPage", 5); //상품관리 페이지 하단에 보여줄 최대 페이지 번호
 			
-			return "ai/aiMng";
+			return "ai/aimng";
 		}
 		
 

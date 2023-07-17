@@ -87,12 +87,12 @@ public class AiRepositoryCustomImpl implements AiRepositoryCustom{
 	
 	@Override
 	public Page<IndexItemDto> getIndexItemPage(AiSearchDto aiSearchDto, Pageable pageable) {
-		/*select item_id, item.itemNm , item.itemDetail, item_img.imgUrl, item.price 
-		 *from item, item_img 
-		 *where item.item_id = item_img.item_id
-		 *and item_img.repimg_yn = 'Y'
-		 *and item.item_nm like '%검색어%'
-		 *order by item.item_id desc;
+		/*select ai_id, ai.aiNm , ai.aiDetail, ai_img.imgUrl, ai.price 
+		 *from ai, ai_img 
+		 *where ai.ai_id = ai_img.ai_id
+		 *and ai.repimg_yn = 'Y'
+		 *and ai.ai_nm like '%검색어%'
+		 *order by ai.ai_id desc;
 		 * */
 		
 		QAi ai = QAi.ai;

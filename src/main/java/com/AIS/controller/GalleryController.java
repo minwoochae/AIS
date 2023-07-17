@@ -10,4 +10,6 @@ public class GalleryController {
 	public String gallery() {
 		return "/gallerymain/gallery";
 	}
+	
+
 }

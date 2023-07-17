@@ -10,4 +10,5 @@ public class DistributionController {
 	public String distribution(){
 		return "/distributionmain/distribution";
 	}
+
 }

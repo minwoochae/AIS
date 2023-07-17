@@ -10,4 +10,6 @@ public class AboutController {
 	public String about() {
 		return "/aboutmain/about";
 	}
+	
+
 }
