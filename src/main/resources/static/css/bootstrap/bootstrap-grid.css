@@ -24,18 +24,6 @@ html {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
-  @media (min-width: 576px) {
-    .container {
-      max-width: 540px; } }
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px; } }
-  @media (min-width: 992px) {
-    .container {
-      max-width: 960px; } }
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px; } }
 
 .container-fluid {
   width: 100%;
@@ -925,10 +913,6 @@ html {
 .d-table-cell {
   display: table-cell !important; }
 
-.d-flex {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important; }
 
 .d-inline-flex {
   display: -webkit-inline-box !important;

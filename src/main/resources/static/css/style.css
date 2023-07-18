@@ -386,7 +386,7 @@ mark,
     content: "\2014\00A0"; }
 
 .img-fluid {
-  max-width: 100%;
+  max-width: 350px;
   height: auto; }
 
 .img-thumbnail {
@@ -443,36 +443,29 @@ pre {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto; }
-  @media (min-width: 576px) {
-    .container {
-      max-width: 540px; } }
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px; } }
-  @media (min-width: 992px) {
-    .container {
-      max-width: 960px; } }
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px; } }
+  margin: 0 auto;
+ 	  justify-content: center;
+  align-items: center;
+  }
 
 .container-fluid {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+
+   }
 
 .row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-right: -15px;
-  margin-left: -15px; }
+  margin-left: -15px;
+    justify-content: center;
+  align-items: center;
+   }
 
 .no-gutters {
   margin-right: 0;
@@ -5479,10 +5472,8 @@ button.bg-dark:focus {
   display: table-cell !important; }
 
 .d-flex {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important; }
-
+  display: flex !important;
+}
 .d-inline-flex {
   display: -webkit-inline-box !important;
   display: -ms-inline-flexbox !important;
@@ -9450,8 +9441,8 @@ textarea.form-control {
   overflow: hidden;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center;
-  height: 250px;
+  background-position: center;
+  height: 300px;
   position: relative;
   display: block; }
 
@@ -9459,11 +9450,16 @@ textarea.form-control {
   background: #fff;
   -webkit-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.1); }
-  @media (min-width: 768px) {
+  box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.1); 
+  width:"580px";
+  }
+  
+
+  
+@media (min-width: 580px) {
     .blog-entry {
-      margin-bottom: 40px; } }
-  @media (max-width: 767.98px) {
+      margin: 30px 20px; } }
+  @media (max-width: 580px) {
     .blog-entry {
       margin-bottom: 30px; } }
   .blog-entry .text {

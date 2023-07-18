@@ -19,7 +19,7 @@
 			<div class="row">
 				<div class="col-md-12 mb-0">
 					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">상품상세</strong>
+						class="text-black">입양 상세</strong>
 				</div>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 				<div class="col-md-6">
 					<div class="ai-entry">
 						<a href="#" class="product-item md-height bg-gray d-block"> 
-						<img th:src="${ai.aiImgDtoList[0].imgUrl}" class="rounded repImg"
+						<img th:src="${ai.aiImgDtoList[0].imgUrl}" class="rounded repImg" style="width:500px; float: right;"
 						 th:alt="${ai.aiNm}">
 						</a>
 
@@ -75,7 +75,7 @@
 							class="btn btn-light border border-primary btn-lg">장바구니
 							담기</button>
 						<button type="button" class="btn btn-primary btn-lg" 
-						onclick="order()">주문하기</button>
+						onclick="order()">입양하기</button>
 					</p>
 					<p th:unless="${#strings.equals(ai.aiSellStatus, 'SELL')}">해당 상품은 현재 품절입니다.</p>
 
@@ -93,14 +93,14 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<p style="white-space: pre-wrap;" th:text="${ai.aiDetail}"></p>
+					<p style="text-align: center;" th:text="${ai.aiDetail}"></p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div th:each="aiImg : ${ai.aiImgDtoList}" class="text-center">
-						<img th:if="${not #strings.isEmpty(aiImg.aiUrl)}"
-							th:src="${aiImg.aiUrl}" class="rounded mgb-15" width="800">
+						<img th:if="${not #strings.isEmpty(aiImg.imgUrl)}"
+							th:src="${aiImg.imgUrl}" class="rounded mgb-15" width="600" style="margin-bottom: 30px;">
 					</div>
 				</div>
 			</div>

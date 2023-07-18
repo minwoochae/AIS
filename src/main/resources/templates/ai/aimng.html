@@ -31,7 +31,7 @@
 	
 	<div class="site-section">
 		<div class="container">
-			<div class="row">
+			<div class="row" style="justify-content: center; align-items: center; margin: 0 auto; width: 60%; padding: 20px 0 50px 0;">
 				
 				<div class="col-md-12">
 					<h2 class="h3 mb-3 text-black">상품관리</h2>
@@ -87,7 +87,7 @@
 						</nav>
 						
 						<div class="row" 
-							 th:object="${aiSearchDto}" style="height: 40px;">
+							 th:object="${aiSearchDto}" >
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5" style="display: flex;">
 								<!-- 상품 등록일 -->
@@ -113,8 +113,8 @@
 							<div class="col-lg-3">
 									<div style="display:flex;">
 									<input type="text" class="form-control"
-									th:field="*{searchQuery}" placeholder="검색어 입력">
-									<button id="searchBtn" type="submit" class="btn btn-primary mb-3">검색</button>							
+									th:field="*{searchQuery}" placeholder="검색어 입력" style="margin-top: 15px	" />
+									<button id="searchBtn" type="submit" class="btn btn-primary mb-3" style="height: 60px; margin-top: 11px">검색</button>							
 								</div>
 							</div>
 							<div class="col-lg-2"></div>

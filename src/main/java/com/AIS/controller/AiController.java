@@ -50,6 +50,22 @@ public class AiController {
 		
 		return "ai/aiForm";
 	}
+
+	
+	// 상품전체 리스트
+	@GetMapping(value = "/ai/ais")
+	public String aiShopList(Model model, AiSearchDto aiSearchDto, Optional<Integer> page)  {
+			
+		Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0 , 4);
+		Page<IndexItemDto> ais = aiService.getIndexItemPage(aiSearchDto, pageable);
+			
+		model.addAttribute("ais",ais);
+		model.addAttribute("aiSearchDto",aiSearchDto);
+		model.addAttribute("maxPage",5);
+			
+		
+		return "ai/aiShopList";
+	}
 	
 	//상품 상세 페이지
 	@GetMapping(value = "/ai/{aiId}")
@@ -58,6 +74,8 @@ public class AiController {
 		model.addAttribute("ai", aiFormDto);
 		return "ai/aiDtl";
 	}
+	
+	
 	
 	//상품, 상품이미지 등록(insert)
 	@PostMapping(value = "/admin/ai/new")

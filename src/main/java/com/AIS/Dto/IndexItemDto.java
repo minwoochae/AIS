@@ -7,7 +7,7 @@ import lombok.*;
 
 @Getter
 @Setter
-public class IndexItemDto {
+public class IndexItemDto{
 	private Long id;
 	
 	private String itemNm;
