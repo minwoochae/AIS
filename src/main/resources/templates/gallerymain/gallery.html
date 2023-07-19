@@ -2,234 +2,99 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-	
-	<!-- 각 페이지의 CSS가 작성될 위치 -->
+
+<!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 	<style>
 </style>
 </th:block>
-<div layout:fragment="content">
-	 <section
-      class="hero-wrap hero-wrap-2"
-      style="background-image: url('/images/bg_2.jpg')"
-      data-stellar-background-ratio="0.5"
-    >
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-          <div class="col-md-9 ftco-animate pb-5">
-            <p class="breadcrumbs mb-2">
-              <span class="mr-2"
-                ><a href="/"
-                  >Home / <i class="ion-ios-arrow-forward"></i></a
-              ></span>
-              <span>분양<i class="ion-ios-arrow-forward"></i></span>
-            </p>
-            <h1 class="mb-0 bread">분양 정보</h1>
-          </div>
-        </div>
-      </div>
-    </section>
+<div layout:fragment="content" >  <!-- style="justify-content: center; align-items: center; width: 70%" -->
+	<section class="hero-wrap hero-wrap-2"
+		style="background-image: url('/images/bg_2.jpg')"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs mb-2">
+						<span class="mr-2"><a href="/">Home / <i
+								class="ion-ios-arrow-forward"></i>
+						</a></span> <span>분양<i class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-0 bread">분양 정보</h1>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-1.jpg)"
-            >
-              <a
-                href="/images/gallery-1.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Cat</span>
-                  <h2><a href="work-single.html">Persian Cat</a></h2>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row" >
+				<div class="ftco-animate" style="width: 350px; margin: 0  50px;" th:each="ai : ${ais.getContent()}">
+						 <a th:href="'/ai/' +${ai.id}" class="block-20 rounded">
+              			 	 <img th:src="${ai.imgUrl}"  class="img-fluid">
+           				  </a>
+						<div class="desc">
+						
+						</div>
+					</div>
+				</div>
+				
+			</div>
+   			<!-- 페이징 -->
+            <div class="row">
+              <div class="col-md-12 text-center ">
+                <nav class="" th:with="start=${(ais.number/maxPage)*maxPage + 1}
+							,end=(${(ais.totalPages == 0) ? 1 : (start + (maxPage - 1) < ais.totalPages ? start + (maxPage - 1) : ais.totalPages)})"
+							aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <li class="page-item" th:classappend="${ais.first}?'disabled'">
+									<a class="page-link"
+										th:href="@{'/gallery/' +${ais.number - 1}} ">이전</a>
+								</li>
+								
+						    <li class="page-item"
+									th:each="page: ${#numbers.sequence(start, end)}"
+									th:classappend="${ais.number eq page-1}?'active':''">
+									<a
+									class="page-link" th:inline="text"
+									th:href="@{'/gallery/' + ${page - 1}}" >[[${page}]]</a>
+							</li>
+								
+						    <li class="page-item" th:classappend="${ais.last}?'disabled'">
+									<a class="page-link"
+										th:href="@{'/gallery/' +${ais.number + 1}} ">다음</a>
+							</li>
+						  </ul>
+					</nav>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-2.jpg)"
-            >
-              <a
-                href="/images/gallery-2.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Dog</span>
-                  <h2><a href="work-single.html">Pomeranian</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-3.jpg)"
-            >
-              <a
-                href="/images/gallery-3.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Cat</span>
-                  <h2><a href="work-single.html">Sphynx Cat</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
+	</section>
 
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-4.jpg)"
-            >
-              <a
-                href="/images/gallery-4.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Cat</span>
-                  <h2><a href="work-single.html">British Shorthair</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-5.jpg)"
-            >
-              <a
-                href="/images/gallery-5.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Dog</span>
-                  <h2><a href="work-single.html">Beagle</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-6.jpg)"
-            >
-              <a
-                href="/images/gallery-6.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Dog</span>
-                  <h2><a href="work-single.html">Pug</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
+			</div>
 
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-7.jpg)"
-            >
-              <a
-                href="/images/gallery-7.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Cat</span>
-                  <h2><a href="work-single.html">British Shorthair</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-8.jpg)"
-            >
-              <a
-                href="/images/gallery-8.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Dog</span>
-                  <h2><a href="work-single.html">Beagle</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(/images/gallery-9.jpg)"
-            >
-              <a
-                href="/images/gallery-9.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>Dog</span>
-                  <h2><a href="work-single.html">Pug</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-</div>
 <!-- 각 페이지의 스크립트가 작성될 위치 -->
 <th:block layout:fragment="script">
-	<script th:inline="javascript"></script>
+	<script th:inline="javascript">
+ 		$(document).ready(function() {
+			$("#searchBtn").on("click", function(e) {
+				e.preventDefault(); // submit되는걸 방지
+				page(0);
+			});
+		});
+
+		// 페이징버튼 눌렀을때 검색어와 selectbox를 get방식으로 주소 이동시켜준다
+		function page(page) {
+			// 입력한 값을 전부 가져온다
+			var searchDateType = $("#searchDateType").val();
+			var searchSellStatus = $("#searchSellStatus").val();
+			var searchBy = $("#searchBy").val();
+			var searchQuery = $("#searchQuery").val();
+
+			// 주소 이동
+			location.href = "/gallery/";
+
+		} 
+	</script>
 </th:block>
 </html>

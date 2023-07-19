@@ -11,4 +11,5 @@ public interface AiRepositoryCustom {
 	Page<Ai> getAdminItemPage(AiSearchDto aiSearchDto, Pageable pageable);
 	
 	Page<IndexItemDto> getIndexItemPage(AiSearchDto aiSearchDto, Pageable pageable);
+	Page<IndexItemDto> getGalleryPage(AiSearchDto aiSearchDto, Pageable pageable);
 }

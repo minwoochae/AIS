@@ -8,13 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import com.AIS.Dto.*;
 import com.AIS.entity.Ai;
 import com.AIS.entity.AiImg;
+import com.AIS.entity.Member;
+import com.AIS.entity.Order;
 import com.AIS.repository.AiImgRepository;
 import com.AIS.repository.AiRepository;
-
+import com.AIS.repository.MemberRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +30,11 @@ public class AiService {
 	private  final AiRepository aiRepository;
 	private final AiImgService  aiImgService;
 	private final AiImgRepository  aiImgRepository;
+	private final MemberRepository  memberRepository;
+	
 	
 	public Long saveAi(AiFormDto aiFormDto, List<MultipartFile> aiImgFileList) throws Exception {
-		//1. 상품등록
+		//1. 동물등록
 		Ai ai = aiFormDto.createAi(); //dto -> entity
 		aiRepository.save(ai);
 
@@ -40,7 +45,7 @@ public class AiService {
 			aiImg.setAi(ai);
 			
 			
-			//첫번째 이미지 일때 대표상품 이미지 지정
+			//첫번째 이미지 일때 대표동물 이미지 지정
 			if(i == 0) {
 				aiImg.setRepimgYn("Y");
 			} else {
@@ -51,12 +56,12 @@ public class AiService {
 		}
 		
 		
-		return ai.getId(); //등록된 상품 id 리턴
+		return ai.getId(); //등록된 동물 id 리턴
 	}
 	
 	
 	
-	// 상품 가져오기
+	// 동물 정보 가져오기
 			@Transactional(readOnly = true) // 트랜잭션 읽기 전용(변경감지 수행하지 않음) -> 성능 향상
 			public AiFormDto getAiDtl(Long aiId) {
 				// 1. ai_img 테이블의 이미지를 가져온다.
@@ -82,6 +87,7 @@ public class AiService {
 				return aiFormDto;		
 			}
 		
+		
 		public Long updateAi(AiFormDto aiFormDto, List<MultipartFile> aiImgFileList) throws Exception {
 			//1.ai 앤티티 가져와서 바꾼다.
 			Ai ai = aiRepository.findById(aiFormDto.getId())
@@ -90,7 +96,7 @@ public class AiService {
 			ai.updateAi(aiFormDto);
 			
 			//2. ai_img를 바꿔준다.->5개의 레코드 전부 변경
-			List<Long> aiImgIds = aiFormDto.getAiImgIds(); //상품 이미지 아이디 리스트 조회
+			List<Long> aiImgIds = aiFormDto.getAiImgIds(); //동물 이미지 아이디 리스트 조회
 			
 			for(int i=0; i<aiImgFileList.size(); i++) {
 				aiImgService.updateAiImg(aiImgIds.get(i), aiImgFileList.get(i));
@@ -100,7 +106,16 @@ public class AiService {
 			return ai.getId(); //변경한 ai의 id 리턴
 		}
 	
-	
+		//입양 기록 삭제
+		public void deleteAi(Long aiId) {
+			//+delete하기 전에 select 를 한번 해준다
+			//-> 영속성 컨텍스트에 앤티티를 저장한 후 변경 감지를 하도록 하기 위해
+			Ai ai = aiRepository.findById(aiId)
+					.orElseThrow(EntityNotFoundException::new);
+			
+//			delete
+			aiRepository.delete(ai);
+		}
 	
 	
 	
@@ -114,6 +129,11 @@ public class AiService {
 	
 	@Transactional(readOnly = true)
 	public Page<IndexItemDto> getIndexItemPage (AiSearchDto aiSearchDto, Pageable pageable){
+		Page<IndexItemDto> aiPage = aiRepository.getIndexItemPage(aiSearchDto, pageable);
+		return aiPage;
+	}
+	@Transactional(readOnly = true)
+	public Page<IndexItemDto> getGalleryPag (AiSearchDto aiSearchDto, Pageable pageable){
 		Page<IndexItemDto> aiPage = aiRepository.getIndexItemPage(aiSearchDto, pageable);
 		return aiPage;
 	}

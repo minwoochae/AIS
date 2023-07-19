@@ -1,18 +1,23 @@
 package com.AIS.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.AIS.Dto.AiFormDto;
@@ -29,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class AiController {
 	private final AiService aiService;
 	
-	//상품리스트
+	//분양 리스트
 	@GetMapping(value = "/ai/animalInformation")
 	public String animalInformationList(Model model, AiSearchDto aiSearchDto, Optional<Integer> page ) {
 		
@@ -43,7 +48,7 @@ public class AiController {
 		return "ai/animalInformationList";
 	}
 	
-	// 상품등록 페이지
+	// 분양등록 페이지
 	@GetMapping(value = "/admin/ai/new")
 	public String aiForm(Model model) {
 		model.addAttribute("aiFormDto", new AiFormDto());
@@ -52,7 +57,7 @@ public class AiController {
 	}
 
 	
-	// 상품전체 리스트
+	// 분양전체 리스트
 	@GetMapping(value = "/ai/ais")
 	public String aiShopList(Model model, AiSearchDto aiSearchDto, Optional<Integer> page)  {
 			
@@ -67,7 +72,7 @@ public class AiController {
 		return "ai/aiShopList";
 	}
 	
-	//상품 상세 페이지
+	//분양 상세 페이지
 	@GetMapping(value = "/ai/{aiId}")
 	public String aiDtl(Model model, @PathVariable("aiId") Long aiId) {
 		AiFormDto aiFormDto =aiService.getAiDtl(aiId);
@@ -77,15 +82,15 @@ public class AiController {
 	
 	
 	
-	//상품, 상품이미지 등록(insert)
+	//분양, 분양이미지 등록(insert)
 	@PostMapping(value = "/admin/ai/new")
 	public String aiNew(@Valid AiFormDto aiFormDto, BindingResult bindingResult, Model model, @RequestParam("aiImgFile") List<MultipartFile> aiImgFileList){
 		if(bindingResult.hasErrors()) {
 			return "ai/AiForm";
 		}
-		//상품등록전에 첫번째 이미지가 있는지 없느지 검사(첫번째 이미지는 필수 입력값)
+		//분양등록전에 첫번째 이미지가 있는지 없느지 검사(첫번째 이미지는 필수 입력값)
 		if(aiImgFileList.get(0).isEmpty()) {
-			model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입니다.");
+			model.addAttribute("errorMessage", "첫번째 분양 이미지는 필수 입니다.");
 			return "ai/aiForm";
 		}
 		
@@ -93,14 +98,14 @@ public class AiController {
 			aiService.saveAi(aiFormDto, aiImgFileList);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errorMessage",  "상품 등록 중 에러가 발생했습니다.");
+			model.addAttribute("errorMessage",  "분양 등록 중 에러가 발생했습니다.");
 			return "ai/aiForm";
 		}
 		
 		return "redirect:/";
 	}
 	
-	// 상품 관리 페이지
+	// 분양 관리 페이지
 		@GetMapping(value = {"/admin/ais", "/admin/ais/{page}"})
 		public String aiManage(AiSearchDto aiSearchDto , 
 				@PathVariable("page") Optional<Integer> page, Model model ) {
@@ -113,13 +118,13 @@ public class AiController {
 			model.addAttribute("ais", ais);
 			
 			model.addAttribute("aiSearchDto", aiSearchDto);
-			model.addAttribute("maxPage", 5); //상품관리 페이지 하단에 보여줄 최대 페이지 번호
+			model.addAttribute("maxPage", 5); //분양관리 페이지 하단에 보여줄 최대 페이지 번호
 			
 			return "ai/aimng";
 		}
 		
 
-		// 상품 수정 페이지 화면 보기
+		// 분양 수정 페이지 화면 보기
 		@GetMapping(value = "/admin/ai/{aiId}")
 		public String aiDtl(@PathVariable("aiId") Long aiId, Model model) {
 			
@@ -129,7 +134,7 @@ public class AiController {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("errorMessage",  "상품 수정 페이지를 불러오는 중 에러가 발생했습니다.");
+				model.addAttribute("errorMessage",  "분양 수정 페이지를 불러오는 중 에러가 발생했습니다.");
 				model.addAttribute("aiFormDto", new AiFormDto());
 				return "ai/aiForm";
 			}
@@ -137,7 +142,7 @@ public class AiController {
 			return "ai/aiModifyForm";
 		}
 		
-			// 상품 수정
+			// 분양 수정
 			@PostMapping(value = "/admin/ai/{aiId}")
 			public String aiUpdate(@Valid AiFormDto aiFormDto, Model model,
 								     BindingResult bindingResult, @RequestParam("aiImgFile") List<MultipartFile> aiImgFileList) {
@@ -147,7 +152,7 @@ public class AiController {
 				
 				// 첫번째 이미지가 있는지 검사
 				if(aiImgFileList.get(0).isEmpty() && aiFormDto.getId() == null) {
-					model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입니다.");
+					model.addAttribute("errorMessage", "첫번째 분양 이미지는 필수 입니다.");
 					return "ai/aiForm";
 				}
 				
@@ -156,11 +161,22 @@ public class AiController {
 					aiService.updateAi(aiFormDto, aiImgFileList);
 				} catch (Exception e) {
 					e.printStackTrace();
-					model.addAttribute("errorMessage", "상품 수정 중 에러가 발생했습니다.");
+					model.addAttribute("errorMessage", "분양 수정 중 에러가 발생했습니다.");
 					return "ai/aiForm";
 				}
 				
 				return "redirect:/";
+			}
+			//분양 기록 삭제
+			@DeleteMapping("/admin/{aiId}/delete")
+			public @ResponseBody ResponseEntity deleteOrder(@PathVariable("aiId") Long aiId,
+					Principal principal) {
+			
+				
+				//2. 입약 기록 삭제
+				aiService.deleteAi(aiId);
+				
+				return new ResponseEntity<Long>(aiId, HttpStatus.OK);
 			}
 			
 		

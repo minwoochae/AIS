@@ -15,13 +15,13 @@ public class OrderItemDto {
 			this.imgUrl = imgUrl;
 		}
 		
-		public String itemNm; //상품명
+		public String itemNm; //분양명
 		
 		
-		public int count; //주문수량
+		public int count;
 		
-		public int orderPrice; //주문 금액
+		public int orderPrice; //분양 비용
 		
-		public String imgUrl; //상품 이미지 경로
+		public String imgUrl; //분양 이미지 경로
 		
 }

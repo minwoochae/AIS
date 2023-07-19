@@ -18,15 +18,15 @@ public class OrderHistDto {
 		this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 		this.orderStatus =order.getOrderStatus();
 }
-	private Long orderId; //주문아이디
+	private Long orderId; //분양아이디
 	
-	private String orderDate; //주문날짜
+	private String orderDate; //분양날짜
 	
 	private OrderStatus orderStatus;
 	
 	private List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 	
-	//orderItemDto 객체를 주문 상품 리스트에 추가 하는 메소드
+	//orderItemDto 객체를 분양 리스트에 추가 하는 메소드
 	public void addOrderItemDto(OrderItemDto orderAiDto) {
 		this.orderItemDtoList.add(orderAiDto);
 	}

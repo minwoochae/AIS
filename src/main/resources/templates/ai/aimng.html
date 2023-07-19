@@ -23,7 +23,7 @@
 			<div class="row">
 				<div class="col-md-12 mb-0">
 					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> 
-					<strong class="text-black">상품관리</strong>
+					<strong class="text-black">분양관리</strong>
 				</div>
 			</div>
 		</div>
@@ -34,16 +34,17 @@
 			<div class="row" style="justify-content: center; align-items: center; margin: 0 auto; width: 60%; padding: 20px 0 50px 0;">
 				
 				<div class="col-md-12">
-					<h2 class="h3 mb-3 text-black">상품관리</h2>
+					<h2 class="h3 mb-3 text-black">분양관리</h2>
 					<form th:action="@{'/admin/ais/' + ${ais.number}}" method="get" th:object="${ais}">
 						<table class="table table-responsive-md">
 						  <thead>
 						    <tr>
 						      <th scope="col">id</th>
-						      <th scope="col">상품명</th>
+						      <th scope="col">동물명</th>
 						      <th scope="col">상태</th>
 						      <th scope="col">등록자</th>
 						      <th scope="col">등록일</th>
+						      <th scope="col">삭제</th>
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -56,6 +57,9 @@
 						      <td th:text="${ai.aiSellStatus}"></td>
 						      <td th:text="${ai.createdBy}"></td>
 						       <td th:text="${ai.regtime}"></td> 
+						        <td>
+						      	 	<a th:href="@{'/admin/' + ${ai.Id} +'/delete'}" th:text="삭제하기"></a>
+						      </td> 
 						    </tr>
 						  </tbody>
 						</table>
@@ -90,7 +94,7 @@
 							 th:object="${aiSearchDto}" >
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5" style="display: flex;">
-								<!-- 상품 등록일 -->
+								<!-- 분양 등록일 -->
 								<select th:field="*{searchDateType}" class="form-control">
 									<option value="all">전체기간</option>
 									<option value="1d">1일</option>
@@ -98,15 +102,15 @@
 									<option value="1m">1개월</option>
 									<option value="6m">6개월</option>
 								</select>
-								<!-- 상품판매 상태 -->
+								<!-- 동물분양 상태 -->
 								<select th:field="*{searchSellStatus}" class="form-control">
 									<option value="">판매상태(전체)</option>
-									<option value="SELL">판매</option>
-									<option value="SOLD_OUT">품절</option>
+									<option value="SELL">분양 가능</option>
+									<option value="SOLD_OUT">분양 완료</option>
 								</select>
-								<!-- 상품명, 등록자 선택 -->
+								<!-- 동물명, 등록자 선택 -->
 								<select th:field="*{searchBy}" class="form-control">
-									<option value="aiNm">상품명</option>
+									<option value="aiNm">동물명</option>
 									<option value="createdBy">등록자</option>
 								</select>
 							</div>

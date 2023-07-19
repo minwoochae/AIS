@@ -16,7 +16,7 @@ import lombok.*;
 public class AiFormDto {
 	private Long id;
 	
-	@NotBlank(message = "상품명은 필수 입력입니다.")
+	@NotBlank(message = "동물명은 필수 입력입니다.")
 	private String aiNm;
 	
 	@NotNull(message = "가격은 필수 입력입니다.")
@@ -25,15 +25,15 @@ public class AiFormDto {
 	private int stockNumber;
 
 	
-	@NotBlank(message = "상품 상세설명은 필수 입력입니다.")
+	@NotBlank(message = "동물 상세설명은 필수 입력입니다.")
 	private String aiDetail;
 	
 	private AiSellStatus aiSellStatus;
 	
-	//상품 이미지 정보를 저장
+	//동물 이미지 정보를 저장
 		private List<AiImgDto> aiImgDtoList = new ArrayList<>();
 		
-		//상품 이미지 아이디들을 저장 -> 수정시에 이미지 아이디들을 담아둘 용도
+		//동물 이미지 아이디들을 저장 -> 수정시에 이미지 아이디들을 담아둘 용도
 		private List<Long> aiImgIds = new ArrayList<>();
 		
 		private static ModelMapper modelMapper = new ModelMapper();

@@ -24,9 +24,9 @@ public class Order extends BaseEntity{
 	private Member member;
 	
 	@Enumerated(EnumType.STRING)
-	private OrderStatus orderStatus; //주문상태
+	private OrderStatus orderStatus; //분양상태
 	
-	private LocalDateTime orderDate; //주문일
+	private LocalDateTime orderDate; //분양일
 	
 	//order에서도 orderItem을 참조할 수 있도록 양방향 관계를 만든다.
 	//다만 orderItem은 자식 테이블이 되므로 List로 만든다.
@@ -51,7 +51,7 @@ public class Order extends BaseEntity{
 		return order;
 	}
 	
-	//총 주문 금액
+	//총 분양 금액
 	public int getTotalPrice() {
 		int totalPrice = 0 ;
 		for(OrderItem orderItem : orderItems) {
@@ -60,7 +60,7 @@ public class Order extends BaseEntity{
 		
 		return totalPrice;
 	}
-	//주문취소
+	//분양취소
 	public void cancelOrder() {
 		this.orderStatus = OrderStatus.CANCEL;
 		

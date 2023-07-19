@@ -129,5 +129,49 @@ public class AiRepositoryCustomImpl implements AiRepositoryCustom{
 				
 		return new PageImpl<>(content, pageable, total);
 	}
+	@Override
+	public Page<IndexItemDto> getGalleryPage(AiSearchDto aiSearchDto, Pageable pageable) {
+		/*select ai_id, ai.aiNm , ai.aiDetail, ai_img.imgUrl, ai.price 
+		 *from ai, ai_img 
+		 *where ai.ai_id = ai_img.ai_id
+		 *and ai.repimg_yn = 'Y'
+		 *and ai.ai_nm like '%검색어%'
+		 *order by ai.ai_id desc;
+		 * */
+		
+		QAi ai = QAi.ai;
+		QAiImg aiImg = QAiImg.aiImg;
+		
+		//dto로 객체로 바로 받아올 때는 
+		//1.컬럼과 dto객체의 필드가 일치해야 한다.
+		//2.dto 객체의 생성자에 @QueryProjection를 반드시 사용해야 한다.
+		List<IndexItemDto> content = queryFactory
+				.select(
+						new QIndexItemDto(
+								ai.id,
+								ai.aiNm,
+								ai.aiDetail,
+								aiImg.imgUrl,
+								ai.price)
+						)
+						.from(aiImg)
+						.join(aiImg.ai, ai)
+						.where(aiImg.repimgYn.eq("Y"))
+						.where(aiNmLike(aiSearchDto.getSearchQuery()))
+						.orderBy(ai.id.desc())
+						.offset(pageable.getOffset())
+						.limit(pageable.getPageSize())
+						.fetch();
+		
+		long total = queryFactory
+				.select(Wildcard.count)
+				.from(aiImg)
+				.join(aiImg.ai, ai)
+				.where(aiImg.repimgYn.eq("Y"))
+				.where(aiNmLike(aiSearchDto.getSearchQuery()))
+				.fetchOne();
+				
+		return new PageImpl<>(content, pageable, total);
+	}
 
 }

@@ -22,17 +22,17 @@ public class Ai extends BaseEntity{
 	private Long id;
 	
 	@Column(nullable = false, length = 255) //not null여부, 컬럼 크기지정
-	private String aiNm; //상품명
+	private String aiNm; //분양명
 	
 	@Column(nullable = false) //not null여부
 	private int price; //가격
 	
 	@Column(nullable = false) //not null여부
-	private int stockNumber; //입양여부 0 1 
+	private int stockNumber; //분양여부 0 1 
 	
 	@Lob //clob과 같은 큰 타입의 문자 타입으로 컬럼을 만든다.
 	@Column(nullable = false) //not null여부
-	private String	aiDetail; // 상품상세설명
+	private String	aiDetail; // 동물 상세설명
 	
 	@Enumerated(EnumType.STRING) //enum의 이름을 DB에 저장
 	private AiSellStatus aiSellStatus; //판매상태(SELL 혹은 SOLD_OUT) -> ai_sell_status
@@ -49,7 +49,7 @@ public class Ai extends BaseEntity{
 		int restStock = this.stockNumber - stockNumber; //남은 재고 수정
 		
 		if(restStock < 0 ) {
-			throw new OutOfStockException("상품의 재고가 부족합니다. 현재 재고수량:"+ this.stockNumber);
+			throw new OutOfStockException("분양이 진행중인 동물입니다,");
 		}
 		
 		this.stockNumber = restStock; //남은 재고수량 반영

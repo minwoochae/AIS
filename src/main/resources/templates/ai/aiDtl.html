@@ -19,7 +19,7 @@
 			<div class="row">
 				<div class="col-md-12 mb-0">
 					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong
-						class="text-black">입양 상세</strong>
+						class="text-black">분양 상세</strong>
 				</div>
 			</div>
 		</div>
@@ -66,18 +66,16 @@
 						<div>
 							<h5
 								style="display: inline-block; margin-right: 15px; color: black; font-weight: bold;">총
-								상품 금액</h5>
+								분양 금액</h5>
 							<strong id="totalPrice" class="text-primary h4"></strong>
 						</div>
 					</div>
 					<p th:if="${#strings.equals(ai.aiSellStatus, 'SELL')}">
-						<button type="button"
-							class="btn btn-light border border-primary btn-lg">장바구니
-							담기</button>
+					
 						<button type="button" class="btn btn-primary btn-lg" 
-						onclick="order()">입양하기</button>
+						onclick="order()">분양하기</button>
 					</p>
-					<p th:unless="${#strings.equals(ai.aiSellStatus, 'SELL')}">해당 상품은 현재 품절입니다.</p>
+					<p th:unless="${#strings.equals(ai.aiSellStatus, 'SELL')}">해당 동물은 현재 분양이 완료 되었습니다.</p>
 
 				</div>
 			</div>
@@ -111,7 +109,7 @@
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
 		$(document).ready(function(){
-			//처음 상세 페이지 화면에 들어올때 총 상품금액이 보여야 하므로
+			//처음 상세 페이지 화면에 들어올때 총 분양금액이 보여야 하므로
 			calculateTotalPrice(); 
 			//수량 - , + 버튼 누를때마다 총가격을 구한다
 			$(".count_btn").click(function(){
@@ -154,7 +152,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					alert("주문이 완료 되었습니다." + result)
+					alert("분양 신청이 완료 되었습니다." )
 					//location.href = '/';
 				},
 				error : function(jqXHR, status, error) {
