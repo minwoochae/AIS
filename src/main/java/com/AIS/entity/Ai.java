@@ -37,6 +37,7 @@ public class Ai extends BaseEntity{
 	@Enumerated(EnumType.STRING) //enum의 이름을 DB에 저장
 	private AiSellStatus aiSellStatus; //판매상태(SELL 혹은 SOLD_OUT) -> ai_sell_status
 	
+	
 	//ai 앤티티 수정
 	public  void updateAi(AiFormDto aiFormDto) {
 		this.aiNm = aiFormDto.getAiNm();

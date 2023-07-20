@@ -78,8 +78,8 @@
 								</th:block>
 								<th:block th:unless="${#strings.equals(order.orderStatus, 'ORDER')}">
 									<p  sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-										<button type="button" class="btn btn-primary"
-										th:value="${order.orderId}" onclick="deleteOrder(this.value)">분양 기록 삭제하기</button>
+										<button type="button" class="btn btn-primary" style="font-size: 8px; width: 120px; margin-top: 40px; margin-right: 20px "
+										th:value="${order.orderId}" onclick="deleteOrder(this.value)">기록 삭제하기</button>
 									</p>
 								</th:block>
 							</div>

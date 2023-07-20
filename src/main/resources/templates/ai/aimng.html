@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
-	
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 	<style>
@@ -58,7 +63,7 @@
 						      <td th:text="${ai.createdBy}"></td>
 						       <td th:text="${ai.regtime}"></td> 
 						        <td>
-						      	 	<a th:href="@{'/admin/' + ${ai.Id} +'/delete'}" th:text="삭제하기"></a>
+						      	 	<button type="button" class="btn btn-danger waves-effect waves-light" th:id="${ai.id}" th:value="${ai.id}" th:onclick="'javascript:deleteAi(' + ${ai.id} +')'">삭제하기</button>
 						      </td> 
 						    </tr>
 						  </tbody>
@@ -159,6 +164,42 @@
 							+ "&searchQuery=" + searchQuery;
 			
 		}
+		
+		
+		
+		 function deleteAi(aiId) {
+		        const deleteconf = confirm("주문 내역을 삭제하시겠습니까?");
+		        if (!deleteconf) return;
+
+		        var token = $("meta[name='_csrf']").attr("content");
+		        var header = $("meta[name='_csrf_header']").attr("content");
+
+		        var url = "/admin/" + aiId + "/delete";
+		        
+		        $.ajax({
+		          url: url,
+		          type: "DELETE", //전송방식
+		          contentType: "application/json",
+		          beforeSend: function(xhr) {
+		            //데이터를 전송하기 전에 헤더에 xsrf값
+		            xhr.setRequestHeader(header, token);
+		          },
+		          dataType: "json",
+		          cache: false,
+		          success: function(result, status) {
+		            // Handle success, e.g., refresh the page or update the UI
+		        	  location.href = "/";
+		          },
+		          error: function(jqXHR, status, error) {
+		            if (jqXHR.status == "401") {
+		              alert("로그인 후 이용해주세요.");
+		              location.href = "/member/login";
+		            } else {
+		              alert(jqXHR.responseText);
+		            }
+		          },
+		        });
+		      }
 		
 	</script>
 </th:block>

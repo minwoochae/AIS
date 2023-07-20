@@ -12,10 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -168,10 +170,9 @@ public class AiController {
 				return "redirect:/";
 			}
 			//분양 기록 삭제
-			@DeleteMapping("/admin/{aiId}/delete")
-			public @ResponseBody ResponseEntity deleteOrder(@PathVariable("aiId") Long aiId,
-					Principal principal) {
-			
+			@DeleteMapping(value = "/admin/{aiId}/delete")
+			public @ResponseBody ResponseEntity deleteOrder(@RequestBody @PathVariable("aiId") Long aiId,
+						Principal principal) {
 				
 				//2. 입약 기록 삭제
 				aiService.deleteAi(aiId);
