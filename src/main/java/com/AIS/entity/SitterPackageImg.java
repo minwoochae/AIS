@@ -3,15 +3,26 @@ package com.AIS.entity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity //엔티티 클래스로 정의
-@Table(name="Ai_img") //테이블 이름 지정
+@Table(name="sitter_package_img") //테이블 이름 지정
 @Getter
 @Setter
 @ToString
-public class AiImg extends BaseEntity {
+public class SitterPackageImg  extends BaseEntity {
+	
 	@Id
 	@Column(name ="aimg_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,15 +41,12 @@ public class AiImg extends BaseEntity {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SitterPackage sitterPackage;
 	
-	@ManyToOne(fetch =FetchType.LAZY)
-	@JoinColumn(name ="ai_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Ai ai;
 	
-	public void updateAiImg(String oriImgName, String imgName, String imgUrl) {
+	public void updateSitterImg(String oriImgName, String imgName, String imgUrl) {
 		this.oriImgName = oriImgName ;
 		this.imgName = imgName ; 
 		this.imgUrl = imgUrl;
 	}
+	
 	
 }

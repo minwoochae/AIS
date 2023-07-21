@@ -1,5 +1,8 @@
 package com.AIS.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,14 +19,17 @@ public class OrderItem extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "ai_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Ai ai;
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Order order;
 	
 	@ManyToOne
 	@JoinColumn(name = "sitter_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private SitterPackage sitterPackage;
 	
 	private int orderPrice; //가격

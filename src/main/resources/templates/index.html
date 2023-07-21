@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <section class="ftco-section bg-light ftco-no-pt ftco-intro">
+    <section class="ftco-section bg-light ftco-no-pt ftco-intro" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
       <div class="container">
         <div class="row">
           <div class="col-md-4 d-flex align-self-stretch px-4 ftco-animate">
@@ -104,13 +104,13 @@
       </div>
     </section>
 
-    <section class="ftco-section ftco-no-pt ftco-no-pb">
+    <section class="ftco-section ftco-no-pt ftco-no-pb" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
       <div class="container">
         <div class="row d-flex no-gutters">
           <div class="col-md-5 d-flex">
             <div
               class="img img-video d-flex align-self-stretch align-items-center justify-content-center justify-content-md-center mb-4 mb-sm-0"
-              style="background-image: url(images/about-1.jpg)"
+              style="background-image: url(/images/about-1.jpg)"
             ></div>
           </div>
           <div class="col-md-7 pl-md-5 py-md-5">
@@ -180,7 +180,7 @@
       </div>
     </section>
 
-    <section class="ftco-counter" id="section-counter">
+    <section class="ftco-counter" id="section-counter" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
       <div class="container">
         <div class="row">
           <div
@@ -236,7 +236,7 @@
     </section>
 
 
-    <section class="ftco-section bg-light ftco-faqs">
+    <section class="ftco-section bg-light ftco-faqs" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 order-md-last">
@@ -384,9 +384,23 @@
       </div>
     </section>
 
-    
+        <section class="ftco-section" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
+        	<div class="container">
+			<div class="row" >
+				<div class="ftco-animate" style="width: 350px; margin: 0  50px;" th:each="ai : ${ais.getContent()}">
+						 <a th:href="'/ai/' +${ai.id}" class="block-20 rounded">
+              			 	 <img th:src="${ai.imgUrl}"  class="img-fluid">
+           				  </a>
+						<div class="desc">
+						
+						</div>
+					</div>
+				</div>
+				
+			</div>
+    </section>
 
-    <section class="ftco-section bg-light">
+    <section class="ftco-section bg-light" style="justify-content: center; align-items: center; margin: 0 auto; width: 80%;">
       <div class="container">
         <div class="row justify-content-center pb-5 mb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
@@ -476,216 +490,9 @@
       </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center pb-5 mb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2>갤러리</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-1.jpg)"
-            >
-              <a
-                href="images/gallery-1.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>고양이</span>
-                  <h2><a href="work-single.html">페르시아</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-2.jpg)"
-            >
-              <a
-                href="images/gallery-2.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>개</span>
-                  <h2><a href="work-single.html">포메라니안</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-3.jpg)"
-            >
-              <a
-                href="images/gallery-3.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>고양이</span>
-                  <h2><a href="work-single.html">스핑크스</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-4.jpg)"
-            >
-              <a
-                href="images/gallery-4.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>고양이</span>
-                  <h2><a href="work-single.html">브리티시 숏헤어</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-5.jpg)"
-            >
-              <a
-                href="images/gallery-5.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>개</span>
-                  <h2><a href="work-single.html">비글</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div
-              class="work mb-4 img d-flex align-items-end"
-              style="background-image: url(images/gallery-6.jpg)"
-            >
-              <a
-                href="images/gallery-6.jpg"
-                class="icon image-popup d-flex justify-content-center align-items-center"
-              >
-                <span class="fa fa-expand"></span>
-              </a>
-              <div class="desc w-100 px-4">
-                <div class="text w-100 mb-3">
-                  <span>개</span>
-                  <h2><a href="work-single.html">퍼그</a></h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="ftco-section bg-light">
-      <div class="container">
-        <div class="row justify-content-center pb-5 mb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2>뉴스</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a
-                href="blog-single.html"
-                class="block-20 rounded"
-                style="background-image: url('images/image_1.jpg')"
-              >
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-2">
-                  <div>July 19, 2023</div>
-                  <div>김기자</div>
-                  <div>
-                    
-                      <span class="fa fa-comment">3</span> 
-        
-                  </div>
-                </div>
-                <h3 class="heading">
-                  선한 표정과 온순한 성격으로 일명 '천사견'이라 불리는 골든 리트리버!
-                    이 천사견들이 10마리도, 100마리도 아닌 무려 천 마리 이상 모인 이색 행사가 미국에서 열렸습니다.
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a
-                href="blog-single.html"
-                class="block-20 rounded"
-                style="background-image: url('images/image_2.jpg')"
-              >
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-2">
-                  <div>April 07, 2020</div>
-                  <div>박 기자</div>
-                  <div>
-                    <span class="fa fa-comment">61</span> 
-                  </div>
-                </div>
-                <h3 class="heading"> 
-                    포메라니안은 깜찍한 외모에 작고 앙증맞다. 하지만 북극곰을 연상시키는 풍성한 털을 가졌다.
-                     실은 원래 북극에서 썰매를 끌던, 제법 큰 덩치의 사역견 출시. 그러다 독일에서 지금같은 소형견으로 변모했다. 
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a
-                href="blog-single.html"
-                class="block-20 rounded"
-                style="background-image: url('images/image_3.jpg')"
-              >
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-2">
-                  <div>July 20, 2023</div>
-                  <div>장기자</div>
-                  <div>
-                     <span class="fa fa-comment">32</span> 
-                  </div>
-                </div>
-                <h3 class="heading">
-                 비가 오나 눈이 오나 동네 구석구석을 배회하는 동물이 있습니다. 바로 길고양이입니다.
-				 배가 고파서 쓰레기봉투를 뜯기도 하고, 새를 공격하기도 하지만 반대로 학대의 대상이 되기도 하는데요.
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
  
 
   
