@@ -29,7 +29,9 @@ public class Member extends BaseEntity {
 	
 	@Column(nullable = false, length = 255)
 	private String password;//비밀번호
-
+	
+	@Column(nullable = false)
+	private String phoneNumber;// 폰번호
 	
 	private String address;
 	
@@ -43,6 +45,7 @@ public class Member extends BaseEntity {
 		member.setName(memberFormDto.getName());
 		member.setEmail(memberFormDto.getEmail());
 		member.setAddress(memberFormDto.getAddress());
+		member.setPhoneNumber(memberFormDto.getPhoneNumber());
 		member.setPassword(password);
 		member.setRole(Role.ADMIN);
 		

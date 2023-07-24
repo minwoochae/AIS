@@ -1,16 +1,25 @@
 package com.AIS.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.AIS.Dto.*;
 import com.AIS.entity.Member;
 import com.AIS.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberservice;
 	private final PasswordEncoder passwordEncoder;
+
 	//문의하기
 	@GetMapping(value = "/members/qa")
 	public String qa() {
@@ -69,4 +79,50 @@ public class MemberController {
 		return "member/memberLoginForm";
 	}
 	
+	
+
+
+	
+	
+	@GetMapping(value = "/account/search")
+	public String search_id(Model model) {
+		model.addAttribute("memberFormDto", new MemberFormDto());
+		return "member/LoginForm";
+	}
+
+	 @PostMapping("/members/find")
+	 public String findMember(@RequestParam String findId, @RequestParam String findEmail, Model model) {
+		 List<Member> members = new ArrayList<>();
+	     Member foundMember = null;
+	     for (Member member : members) {
+	         if (member.getName().equals(findId) && member.getEmail().equals(findEmail)) {
+	             foundMember = member;
+	             break;
+	         }
+	     }
+
+	     if (foundMember != null) {
+	         model.addAttribute("members", foundMember);
+	     }
+
+	     return "member/LoginForm";
+	 }
+	 
+	 
+	 @GetMapping(value = "/members/idFind")
+		public String findIdMember(Model model) {
+			model.addAttribute("memberFormDto", new MemberFormDto());
+			return "member/idLoginForm";
+		}
+		/*
+		 * @PostMapping("/members/idFind") public String findIdMember(@RequestParam
+		 * String findId, @RequestParam String findEmail, Model model) { List<Member>
+		 * members = new ArrayList<>(); Member foundMember = null; for (Member member :
+		 * members) { if (member.getName().equals(findId) &&
+		 * member.getEmail().equals(findEmail)) { foundMember = member; break; } }
+		 * 
+		 * if (foundMember != null) { model.addAttribute("members", foundMember); }
+		 * 
+		 * return "member/idLoginForm"; }
+		 */
 }

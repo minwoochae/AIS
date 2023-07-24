@@ -2,7 +2,11 @@ package com.AIS.entity;
 
 
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.AIS.Dto.PackageFormDto;
+import com.AIS.constant.OrderStatus;
 import com.AIS.constant.PackageOrder;
 
 import jakarta.persistence.*;
@@ -19,6 +23,11 @@ public class SitterPackage extends BaseEntity{
 	@Column(name= "sitter_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name ="member_id")
+	private Member member;
+	
 	
 	@Column(nullable = false , length = 255)
 	private String sitterNm;
@@ -33,6 +42,7 @@ public class SitterPackage extends BaseEntity{
 	@Enumerated(EnumType.STRING)
 	private PackageOrder packageOrder; //YESORDER, NOORDER
 	
+
 	
 	//ai 앤티티 수정
 	public  void updateAi(PackageFormDto packageFormDto) {
