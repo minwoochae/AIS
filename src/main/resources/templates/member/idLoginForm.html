@@ -53,13 +53,19 @@ button:hover {
 		style="justify-content: center; align-items: center; margin: 0 auto;">
 		<h2 class="h3 mb-3 text-black">아이디/비밀번호 찾기</h2>
 		<div class="p-3 p-lg-5 border">
-			<form role="form" action="/members/idFind" method="post"
-				onsubmit="return findUser(users);">
-				<!-- <div class="form-group row">
+			  <form role="form" action="/members/find" method="post" onsubmit="return findUser(users);">
+				<div class="form-group row">
 					<div class="col-md-12">
 						<label for="findId" class="text-black">이름</label> <input
 							type="text" class="form-control" placeholder="이름을 입력해주세요"
 							id="findId" name="findId">
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-12">
+						<label for="findEmail" class="text-black">이메일</label> <input
+							type="email" class="form-control" placeholder="이메일을 입력해주세요"
+							id="findEmail" name="findEmail">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -74,15 +80,12 @@ button:hover {
 						<button type="submit" class="btn btn-primary mb-3">아이디/비밀번호
 							찾기</button>
 					</div>
-				</div> -->
-				<input type="text" id="memberIdInput" placeholder="Enter Member ID">
-				<button onclick="findMember()">Find Member</button>
-				<div id="memberDetails"></div>
+				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}">
 			</form>
 			<h2>아이디/비밀번호 찾기 결과</h2>
-			<div th:if="${members}">
+			<!-- <div th:if="${members}">
 				<p>
 					아이디: <span th:text="${members.email}"></span>
 				</p>
@@ -92,7 +95,7 @@ button:hover {
 			</div>
 			<div th:unless="${members}">
 				<p>일치하는 사용자를 찾을 수 없습니다.</p>
-			</div>
+			</div> -->
 		</div>
 	</div>
 
@@ -105,37 +108,34 @@ button:hover {
 	if(errorMessage != null){
 		alert(errorMessage);
 	}
-	 function findMember() {
-		    const memberId = document.getElementById('memberIdInput').value;
+	   const users = [
+		  /*  for(let i = 0; i < members){} */
+           { name: 'User1', email: 'user1@example.com', username: 'user1', password: 'password1' },
+           { name: 'User2', email: 'user2@example.com', username: 'user2', password: 'password2' },
+           { name: 'User3', email: 'user3@example.com', username: 'user3', password: 'password3' },
+           
+       ];
 
-		    // Make an API call to the server to fetch member details
-		    fetch(`/api/members/${memberId}`) // Replace this URL with the actual API endpoint on your server
-		      .then(response => response.json())
-		      .then(data => {
-		        // Assuming the API response returns the member details in JSON format
-		        displayMemberDetails(data);
-		      })
-		      .catch(error => {
-		        console.error('Error fetching member details:', error);
-		      });
-		  }
+	   function findUser(users) {
+	        const inputName = document.getElementById('findId').value;
+	        const inputEmail = document.getElementById('findEmail').value;
+	        let foundUser = null;
 
-		  // Function to display the member details in the HTML
-		  function displayMemberDetails(member) {
-		    const memberDetailsDiv = document.getElementById('memberDetails');
-		    if (member) {
-		      memberDetailsDiv.innerHTML = `
-		        <p>Member ID: ${member.id}</p>
-		        <p>Name: ${member.name}</p>
-		        <p>Email: ${member.email}</p>
-		        <p>Phone Number: ${member.phoneNumber}</p>
-		        <p>Address: ${member.address}</p>
-		        <p>Role: ${member.role}</p>
-		      `;
-		    } else {
-		      memberDetailsDiv.innerHTML = '<p>Member not found.</p>';
-		    }
-		  }
+	        for (let i = 0; i < users.length; i++) {
+	            if (users[i].name === inputName && users[i].email === inputEmail) {
+	                foundUser = users[i];
+	                break;
+	            }
+	        }
+
+	        if (foundUser) {
+	            alert(`비밀번호: ${foundUser.password}`);
+	            return true; // 폼을 제출
+	        } else {
+	            alert('일치하는 사용자를 찾을 수 없습니다.');
+	            return false; // 폼 제출을 막음
+	        }
+	    }
    </script>
 </th:block>
 </html>

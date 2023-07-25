@@ -37,5 +37,6 @@ public class GalleryController {
 		return "gallerymain/gallery";
 	}
 	
+	
 
 }

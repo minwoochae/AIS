@@ -47,6 +47,29 @@ public class AiController {
 	}
 
 	
+	//분양, 분양이미지 등록(insert)
+	@PostMapping(value = "/admin/ai/new")
+	public String aiNew(@Valid AiFormDto aiFormDto, BindingResult bindingResult, Model model, @RequestParam("aiImgFile") List<MultipartFile> aiImgFileList){
+		if(bindingResult.hasErrors()) {
+			return "ai/AiForm";
+		}
+		//분양등록전에 첫번째 이미지가 있는지 없느지 검사(첫번째 이미지는 필수 입력값)
+		if(aiImgFileList.get(0).isEmpty()) {
+			model.addAttribute("errorMessage", "첫번째 분양 이미지는 필수 입니다.");
+			return "ai/aiForm";
+		}
+		
+		try {
+			aiService.saveAi(aiFormDto, aiImgFileList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage",  "분양 등록 중 에러가 발생했습니다.");
+			return "ai/aiForm";
+		}
+		
+		return "redirect:/";
+	}
+	
 	// 분양전체 리스트
 	@GetMapping(value = "/ai/ais")
 	public String aiShopList(Model model, AiSearchDto aiSearchDto, Optional<Integer> page)  {
@@ -71,29 +94,6 @@ public class AiController {
 	}
 	
 	
-	
-	//분양, 분양이미지 등록(insert)
-	@PostMapping(value = "/admin/ai/new")
-	public String aiNew(@Valid AiFormDto aiFormDto, BindingResult bindingResult, Model model, @RequestParam("aiImgFile") List<MultipartFile> aiImgFileList){
-		if(bindingResult.hasErrors()) {
-			return "ai/AiForm";
-		}
-		//분양등록전에 첫번째 이미지가 있는지 없느지 검사(첫번째 이미지는 필수 입력값)
-		if(aiImgFileList.get(0).isEmpty()) {
-			model.addAttribute("errorMessage", "첫번째 분양 이미지는 필수 입니다.");
-			return "ai/aiForm";
-		}
-		
-		try {
-			aiService.saveAi(aiFormDto, aiImgFileList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMessage",  "분양 등록 중 에러가 발생했습니다.");
-			return "ai/aiForm";
-		}
-		
-		return "redirect:/";
-	}
 	
 	// 분양 관리 페이지
 		@GetMapping(value = {"/admin/ais", "/admin/ais/{page}"})

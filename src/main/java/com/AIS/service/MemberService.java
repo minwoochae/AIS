@@ -1,6 +1,7 @@
 package com.AIS.service;
 
 
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,7 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.AIS.entity.Member;
+
+import com.AIS.entity.*;
 import com.AIS.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,20 +37,44 @@ public class MemberService implements UserDetailsService{
 			throw new IllegalStateException("이미 가입된 회원입니다.");
 		}
 	}
+	//이메일 체크
+	public void getNameMembers(Member member) {
+		Member findMember = memberRepository.findByEmail(member.getEmail());
+		if(findMember == null) {
+			throw new IllegalStateException("존재하지 않은 회원입니다");
+		}
+	}
+	public String emailFind(String name, String phone) {
+		
+		Member member =memberRepository.findByNameAndPhoneNumber(name, phone);
+		
+		if(member == null) {
+			return "일치하는 사용자가 없습니다";
+		}
+		
+		return member.getEmail();
+	}
 	
+	/*
+	 * // 동물 정보 가져오기
+	 * 
+	 * @Transactional(readOnly = true) // 트랜잭션 읽기 전용(변경감지 수행하지 않음) -> 성능 향상 public
+	 * AiFormDto getMemberDtl(Long memberId, String email) { // 1. ai_img 테이블의 이미지를
+	 * 가져온다. Member memberDtoList = memberRepository.findByEmail(email);
+	 * 
+	 * // 2. ai 테이블에 있는 데이터를 가져온다. Member member =
+	 * memberRepository.findById(memberId)
+	 * .orElseThrow(EntityNotFoundException::new);
+	 * 
+	 * // Ai 엔티티 객체 -> dto로 변환 MemberFormDto memberFormDto =
+	 * MemberFormDto.of(member);
+	 * 
+	 * // 3. FormDto에 이미지 정보(aiImgDtoList)를 넣어준다. memberFormDto.setEmail(email);
+	 * 
+	 * 
+	 * return memberFormDto; }
+	 */
 	
-	
-//	
-//	private void  loadMembers(Member member) {
-//		Member findEmMember = memberRepository.findByEmail(member.getEmail());
-//		
-//		
-//		
-//		if(findEmMember ==null) {
-//			throw new IllegalStateException("존재하지 않은 회원입니다.");
-//		}
-//	}
-
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		//사용자가 입력한 email이 DB에 있는지 쿼리문을 사용한다.

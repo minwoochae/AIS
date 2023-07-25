@@ -1,5 +1,12 @@
 package com.AIS.Dto;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
+
+import com.AIS.entity.Ai;
+import com.AIS.entity.Member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,5 +34,12 @@ public class MemberFormDto {
 	
 	@NotEmpty(message = "휴대폰 번호는 필수입력 값 입니다.")
 	private String phoneNumber;
+	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
+	//entity -> dto로 바꿈
+	public static MemberFormDto of(Member member) {
+		return modelMapper.map(member, MemberFormDto.class);
+	}
 	
 }

@@ -4,6 +4,10 @@
 	layout:decorate="~{layouts/layout1}"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
 	<style>
@@ -53,42 +57,17 @@ button:hover {
 		style="justify-content: center; align-items: center; margin: 0 auto;">
 		<h2 class="h3 mb-3 text-black">아이디/비밀번호 찾기</h2>
 		<div class="p-3 p-lg-5 border">
-			  <form role="form" action="/members/find" method="post" onsubmit="return findUser(users);">
-				<div class="form-group row">
-					<div class="col-md-12">
-						<label for="findId" class="text-black">이름</label> <input
-							type="text" class="form-control" placeholder="이름을 입력해주세요"
-							id="findId" name="findId">
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-12">
-						<label for="findEmail" class="text-black">이메일</label> <input
-							type="email" class="form-control" placeholder="이메일을 입력해주세요"
-							id="findEmail" name="findEmail">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary mb-3">아이디/비밀번호
-							찾기</button>
-					</div>
-				</div>
-				<input type="hidden" th:name="${_csrf.parameterName}"
-					th:value="${_csrf.token}">
-			</form>
+				<label for="memberName">이름:</label> 
+				<input type="text" id="memberName" name="memberName" required> 
+				<label for="memberPhoneNumber">폰번호:</label> 
+				<input type="text" id="memberPhoneNumber" name="memberPhoneNumber" required>
+				<button type="button" class="btn btn-primary btn-lg"   onclick="member()">찾기</button>
+
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 			<h2>아이디/비밀번호 찾기 결과</h2>
-			<div th:if="${members}">
-				<p>
-					아이디: <span th:text="${members.email}"></span>
-				</p>
-				<p>
-					비밀번호: <span th:text="${members.password}"></span>
-				</p>
+			<div class = "idpwResult">
 			</div>
-			<div th:unless="${members}">
-				<p>일치하는 사용자를 찾을 수 없습니다.</p>
-			</div>
+
 		</div>
 	</div>
 
@@ -101,8 +80,7 @@ button:hover {
 	if(errorMessage != null){
 		alert(errorMessage);
 	}
-	   const users = [
-		  /*  for(let i = 0; i < members){} */
+	 /*   const users = [
            { name: 'User1', email: 'user1@example.com', username: 'user1', password: 'password1' },
            { name: 'User2', email: 'user2@example.com', username: 'user2', password: 'password2' },
            { name: 'User3', email: 'user3@example.com', username: 'user3', password: 'password3' },
@@ -110,8 +88,8 @@ button:hover {
        ];
 
 	   function findUser(users) {
-	        const inputName = document.getElementById('findId').value;
-	        const inputEmail = document.getElementById('findEmail').value;
+	        const inputName = document.getElementById('findMemberName').value;
+	        const inputPhoneNumber = document.getElementById('findPhoneNumber').value;
 	        let foundUser = null;
 
 	        for (let i = 0; i < users.length; i++) {
@@ -128,7 +106,52 @@ button:hover {
 	            alert('일치하는 사용자를 찾을 수 없습니다.');
 	            return false; // 폼 제출을 막음
 	        }
+	    } */	
+	    function member() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var url = "/account/search";
+			
+			
+			//controller(서버)에 전달할 데이터
+			var paramData = {
+					memberName : $("#memberName").val(), //이름
+					memberPhoneNumber : $("#memberPhoneNumber").val(), //폰넘버
+					message : ""
+			}
+		
+			
+			//*전달하기 전에 데이터를 JSON ->문자 번호 만들어야 한다.
+			var param = JSON.stringify(paramData);
+			
+			console.log(param);
+			
+			$.ajax({
+				url : url, //request URL
+				type :"POST", //전송방식
+				contentType : "application/json",
+				data : param, //서버에 전송할 데이터
+				beforeSend : function(xhr) {
+					//데이터를 전송하기전에 헤더에 csrf값을 설정
+					xhr.setRequestHeader(header,token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(param) {
+					$(".idpwResult").append(`<span>${param.message}</span>`)
+					//location.href = '/';
+				},
+				error : function(jqXHR, status, error) {
+					if (jqXHR.status == '401'){
+						alert('로그인 후 이용해주세요.')
+						location.href = '/account/search';	
+				}else{
+					//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다.)
+					alert(jqXHR.responseText); 
+				}
+				}	
+			});
 	    }
-   </script>
+	</script>
 </th:block>
 </html>
