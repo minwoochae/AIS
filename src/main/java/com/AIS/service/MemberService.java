@@ -2,17 +2,22 @@ package com.AIS.service;
 
 
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-
+import com.AIS.Dto.AiFormDto;
+import com.AIS.Dto.MemberFormDto;
 import com.AIS.entity.*;
 import com.AIS.repository.MemberRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 
@@ -51,29 +56,34 @@ public class MemberService implements UserDetailsService{
 		if(member == null) {
 			return "일치하는 사용자가 없습니다";
 		}
-		
 		return member.getEmail();
 	}
 	
-	/*
-	 * // 동물 정보 가져오기
-	 * 
-	 * @Transactional(readOnly = true) // 트랜잭션 읽기 전용(변경감지 수행하지 않음) -> 성능 향상 public
-	 * AiFormDto getMemberDtl(Long memberId, String email) { // 1. ai_img 테이블의 이미지를
-	 * 가져온다. Member memberDtoList = memberRepository.findByEmail(email);
-	 * 
-	 * // 2. ai 테이블에 있는 데이터를 가져온다. Member member =
-	 * memberRepository.findById(memberId)
-	 * .orElseThrow(EntityNotFoundException::new);
-	 * 
-	 * // Ai 엔티티 객체 -> dto로 변환 MemberFormDto memberFormDto =
-	 * MemberFormDto.of(member);
-	 * 
-	 * // 3. FormDto에 이미지 정보(aiImgDtoList)를 넣어준다. memberFormDto.setEmail(email);
-	 * 
-	 * 
-	 * return memberFormDto; }
-	 */
+	public String passwordFind(String name, String phone , String email) {
+		
+		Member member =memberRepository.findByNameAndPhoneNumberAndEmail(name, phone , email);
+		
+		if(member == null) {
+			return "일치하는 사용자가 없습니다";
+		}
+			
+		System.out.println(member.getPassword());
+		return member.getPassword();
+	}
+	
+	
+	//비번 수정
+	public Long updateMember(MemberFormDto memberFormDto) throws Exception {
+		//1.ai 앤티티 가져와서 바꾼다.
+		Member member = memberRepository.findByPassword(memberFormDto.getName());
+		
+		member.updateMember(memberFormDto);
+		
+
+		
+		return member.getId(); //변경한 ai의 id 리턴
+	}
+
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

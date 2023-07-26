@@ -5,8 +5,8 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <!-- 각 페이지의 CSS가 작성될 위치 -->
 <th:block layout:fragment="css">
@@ -57,17 +57,27 @@ button:hover {
 		style="justify-content: center; align-items: center; margin: 0 auto;">
 		<h2 class="h3 mb-3 text-black">아이디/비밀번호 찾기</h2>
 		<div class="p-3 p-lg-5 border">
-				<label for="memberName">이름:</label> 
-				<input type="text" id="memberName" name="memberName" required> 
-				<label for="memberPhoneNumber">폰번호:</label> 
-				<input type="text" id="memberPhoneNumber" name="memberPhoneNumber" required>
-				</br>
-				
-				<button type="button" class="btn btn-primary btn-lg"   onclick="member()">찾기</button>
+			<label for="memberName">이름:</label> <input type="text"
+				id="memberName" name="memberName" required> <label
+				for="memberPhoneNumber">폰번호:</label> <input type="text"
+				id="memberPhoneNumber" name="memberPhoneNumber" required> <label
+				for="memberEmail">이메일(아이디)</label> <input type="text"
+				id="memberEmail" name="memberEmail" required> <br>
 
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<button type="button" class="btn btn-primary btn-lg"
+				onclick="member()">비밀번호 변경하기</button>
+
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}">
 			<h2>아이디/비밀번호 찾기 결과</h2>
-			<div class = "idpwResult">
+			<div class="idpwResult">
+				<div class="form-group row">
+					<div class="col-md-12">
+							
+						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}">
+					</div>
+				</div>
 			</div>
 
 		</div>
@@ -86,16 +96,18 @@ button:hover {
 	    function member() {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
-			var url = "/account/search";
+			var url = "/account/pssearch";
+			var urls = "/account/pssearchs";
 			
 			
 			//controller(서버)에 전달할 데이터
 			var paramData = {
 					memberName : $("#memberName").val(), //이름
 					memberPhoneNumber : $("#memberPhoneNumber").val(), //폰넘버
-					message : ""
-			}
-		
+					memberEmail : $("#memberEmail").val(), //폰넘버
+					/* message : "" */
+			}	
+
 			
 			//*전달하기 전에 데이터를 JSON ->문자 번호 만들어야 한다.
 			var param = JSON.stringify(paramData);
@@ -106,7 +118,7 @@ button:hover {
 				url : url, //request URL
 				type :"POST", //전송방식
 				contentType : "application/json",
-				data : param, //서버에 전송할 데이터
+				data : param, //서버에  전송할 데이터
 				beforeSend : function(xhr) {
 					//데이터를 전송하기전에 헤더에 csrf값을 설정
 					xhr.setRequestHeader(header,token);
@@ -114,7 +126,33 @@ button:hover {
 				dataType : "json",
 				cache : false,
 				success : function(param) {
-					$(".idpwResult").text(`${param.message}`)
+					 $(".idpwResult").text(`${param.message}`) 
+					 location.href = '/account/searchps';	
+					/* 		$.ajax({
+								url : urls, //request URL
+								type :"POST", //전송방식
+								contentType : "application/json",
+								data : param, //서버에  전송할 데이터
+								beforeSend : function(xhr) {
+									//데이터를 전송하기전에 헤더에 csrf값을 설정
+									xhr.setRequestHeader(header,token);
+								},
+								dataType : "json",
+								cache : false,
+								success : function(params) {
+									
+								},
+								error : function(jqXHR, status, error) {
+									if (jqXHR.status == '401'){
+										alert('비밀번호 값을 제대로 입력해주세요.')
+										location.href = '/account/search';	
+								}else{
+									//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다.)
+									alert(jqXHR.responseText); 
+								}
+								}	
+							}); */
+					
 					//location.href = '/';
 				},
 				error : function(jqXHR, status, error) {

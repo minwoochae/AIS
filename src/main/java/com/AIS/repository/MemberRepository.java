@@ -13,9 +13,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	//select * from member where password = ?
     Member findByPassword(String password);
     
-  //select * from member where password = ?
     Member findByName(String name);
 	
     Member findByNameAndPhoneNumber(String name, String  phoneNumber);
+    Member findByNameAndPhoneNumberAndEmail(String name, String  phoneNumber, String email);
 	
 }

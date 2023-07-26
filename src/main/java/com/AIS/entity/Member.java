@@ -4,6 +4,7 @@ import lombok.*;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.AIS.Dto.AiFormDto;
 import com.AIS.Dto.MemberFormDto;
 import com.AIS.constant.Role;
 
@@ -51,4 +52,13 @@ public class Member extends BaseEntity {
 		
 		return member;
 	}
+	
+	public  void updateMember(MemberFormDto memberFormDto) {
+		this.name = memberFormDto.getName();
+		this.email = memberFormDto.getEmail();
+		this.phoneNumber = memberFormDto.getPhoneNumber();
+		this.password = memberFormDto.getPassword();
+	}
+
+
 }
