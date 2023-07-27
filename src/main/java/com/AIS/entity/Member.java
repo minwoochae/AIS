@@ -54,11 +54,10 @@ public class Member extends BaseEntity {
 	}
 	
 	public  void updateMember(MemberFormDto memberFormDto) {
-		this.name = memberFormDto.getName();
-		this.email = memberFormDto.getEmail();
-		this.phoneNumber = memberFormDto.getPhoneNumber();
+
 		this.password = memberFormDto.getPassword();
 	}
+
 
 
 }

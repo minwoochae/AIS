@@ -2,6 +2,7 @@ package com.AIS.service;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.AIS.Dto.AiFormDto;
+import com.AIS.Dto.AiImgDto;
 import com.AIS.Dto.MemberFormDto;
 import com.AIS.entity.*;
 import com.AIS.repository.MemberRepository;
@@ -75,7 +77,7 @@ public class MemberService implements UserDetailsService{
 	//비번 수정
 	public Long updateMember(MemberFormDto memberFormDto) throws Exception {
 		//1.ai 앤티티 가져와서 바꾼다.
-		Member member = memberRepository.findByPassword(memberFormDto.getName());
+		Member member = memberRepository.findByPassword(memberFormDto.getPassword());
 		
 		member.updateMember(memberFormDto);
 		
@@ -83,6 +85,23 @@ public class MemberService implements UserDetailsService{
 		
 		return member.getId(); //변경한 ai의 id 리턴
 	}
+	
+	
+	// 동물 정보 가져오기
+	@Transactional(readOnly = true) // 트랜잭션 읽기 전용(변경감지 수행하지 않음) -> 성능 향상
+	public MemberFormDto getmemberDtl(String password) {
+
+		// 2. ai 테이블에 있는 데이터를 가져온다.
+		Member member = memberRepository.findByPassword(password);
+		
+		// Ai 엔티티 객체 -> dto로 변환
+		MemberFormDto memberFormDto = MemberFormDto.of(member);
+		
+		
+		return memberFormDto;		
+	}
+
+
 
 	
 	@Override

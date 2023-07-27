@@ -93,11 +93,11 @@ button:hover {
 		alert(errorMessage);
 	}
 	
-	    function member() {
+	    function member(memberId) {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var url = "/account/pssearch";
-			var urls = "/account/pssearchs";
+			var urls = "/account/pssearch/" + memberId;
 			
 			
 			//controller(서버)에 전달할 데이터
@@ -126,9 +126,9 @@ button:hover {
 				dataType : "json",
 				cache : false,
 				success : function(param) {
-					 $(".idpwResult").text(`${param.message}`) 
-					 location.href = '/account/searchps';	
-					/* 		$.ajax({
+					 location.href = urls
+				/* 	 $(".idpwResult").text(`${param.message}`)  */
+					 		/* $.ajax({
 								url : urls, //request URL
 								type :"POST", //전송방식
 								contentType : "application/json",
@@ -151,7 +151,7 @@ button:hover {
 									alert(jqXHR.responseText); 
 								}
 								}	
-							}); */
+							});  */
 					
 					//location.href = '/';
 				},

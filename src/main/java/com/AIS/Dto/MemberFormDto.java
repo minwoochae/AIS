@@ -17,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberFormDto {
+	private Long id;
 	
 	@NotBlank(message  = "이름은 필수입력 값입니다.")
 	private String name;

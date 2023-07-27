@@ -1,24 +1,12 @@
 package com.AIS.controller;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.AIS.Dto.*;
@@ -26,7 +14,6 @@ import com.AIS.entity.Member;
 import com.AIS.repository.MemberRepository;
 import com.AIS.service.MemberService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberservice;
 	private final PasswordEncoder passwordEncoder;
-	private final MemberRepository memberRepository;
 
 	// 문의하기
 	@GetMapping(value = "/members/qa")
@@ -131,6 +117,43 @@ public class MemberController {
 		msg.put("message", pass);
 		return msg;
 	}
+	
+	
+	// 분양 수정 페이지 화면 보기
+	@GetMapping(value = "/account/pssearch/{memberId}")
+	public String memberDtl(@PathVariable("memberId") String password, Model model) {
+		
+		try {
+			MemberFormDto memberFormDto = memberservice.getmemberDtl(password);
+			model.addAttribute("memberFormDto", memberFormDto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage",  "분양 수정 페이지를 불러오는 중 에러가 발생했습니다.");
+			model.addAttribute("memberFormDto", new MemberFormDto());
+			return "/account/pssearch";
+		}
 
+		return "member/memberLoginForm";
+	}
+	
+		// 분양 수정
+		@PostMapping(value = "/account/pssearch/{memberId}")
+		public String memberUpdate(@Valid MemberFormDto memberFormDto, Model model,
+							     BindingResult bindingResult) {
+			if(bindingResult.hasErrors()) {
+				return "/account/pssearch";
+			}
+			
+			try {
+				memberservice.updateMember(memberFormDto);
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("errorMessage", "분양 수정 중 에러가 발생했습니다.");
+				return "/account/pssearch";
+			}
+			
+			return "member/memberLoginForm";
+		}
 
 }
