@@ -66,7 +66,7 @@ button:hover {
 
 			<button type="button" class="btn btn-primary btn-lg"
 				onclick="member()">비밀번호 변경하기</button>
-
+	
 			<input type="hidden" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}">
 			<h2>아이디/비밀번호 찾기 결과</h2>
@@ -105,7 +105,7 @@ button:hover {
 					memberName : $("#memberName").val(), //이름
 					memberPhoneNumber : $("#memberPhoneNumber").val(), //폰넘버
 					memberEmail : $("#memberEmail").val(), //폰넘버
-					/* message : "" */
+					 message : "" 
 			}	
 
 			
@@ -126,8 +126,7 @@ button:hover {
 				dataType : "json",
 				cache : false,
 				success : function(param) {
-					 location.href = urls
-				/* 	 $(".idpwResult").text(`${param.message}`)  */
+				 	/*  $(".idpwResult").text(`${param.message}`)   */
 					 		/* $.ajax({
 								url : urls, //request URL
 								type :"POST", //전송방식

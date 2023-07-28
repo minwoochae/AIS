@@ -100,7 +100,7 @@ public class MemberController {
 	@GetMapping(value = "/account/pssearch")
 	public String search_ps(Model model) {
 		model.addAttribute("memberFormDto", new MemberFormDto());
-
+		
 		return "member/psLoginForm";
 	}
 
@@ -113,26 +113,17 @@ public class MemberController {
 
 		HashMap<String, String> msg = new HashMap<>();
 		String pass = memberservice.passwordFind(name, phone, email);
-
+		
 		msg.put("message", pass);
 		return msg;
+		
 	}
 	
 	
 	// 분양 수정 페이지 화면 보기
 	@GetMapping(value = "/account/pssearch/{memberId}")
-	public String memberDtl(@PathVariable("memberId") String password, Model model) {
-		
-		try {
-			MemberFormDto memberFormDto = memberservice.getmemberDtl(password);
-			model.addAttribute("memberFormDto", memberFormDto);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("errorMessage",  "분양 수정 페이지를 불러오는 중 에러가 발생했습니다.");
+	public String memberDtl(@Valid  MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
 			model.addAttribute("memberFormDto", new MemberFormDto());
-			return "/account/pssearch";
-		}
 
 		return "member/memberLoginForm";
 	}
