@@ -2,6 +2,7 @@ package com.AIS.entity;
 
 import lombok.*;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.AIS.Dto.AiFormDto;
@@ -39,6 +40,7 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;//역할
 	
+	
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		String password = passwordEncoder.encode(memberFormDto.getPassword());
 		
@@ -52,11 +54,33 @@ public class Member extends BaseEntity {
 		
 		return member;
 	}
+	/*
+	 * public static Member createps(MemberFormDto memberFormDto, PasswordEncoder
+	 * passwordEncoder) { Member member = new Member();
+	 * member.setName(memberFormDto.getName());
+	 * member.setEmail(memberFormDto.getEmail());
+	 * member.setPhoneNumber(memberFormDto.getPhoneNumber());
+	 * member.setPassword(memberFormDto.getPassword());
+	 * 
+	 * return member; }
+	 */
 	
 	public  void updateMember(MemberFormDto memberFormDto) {
-
 		this.password = memberFormDto.getPassword();
 	}
+	public String  updatePassword(String pass,PasswordEncoder passwordEncoder) {
+		String password = passwordEncoder.encode(pass);
+		this.password = password;
+		
+		return password;
+	}
+	public String  createPassword(String pass , String getpass) {
+		this.password = pass;
+		
+		return password;
+	}
+
+
 
 
 

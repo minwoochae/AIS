@@ -86,25 +86,18 @@ button:hover {
 </div>
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	//회원가입이 실패 했을때
-	var errorMessage = [[${errorMessage}]];
-	
-	if(errorMessage != null){
-		alert(errorMessage);
-	}
 	
 	    function member(memberId) {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var url = "/account/pssearch";
-			var urls = "/account/pssearch/" + memberId;
 			
 			
 			//controller(서버)에 전달할 데이터
 			var paramData = {
 					memberName : $("#memberName").val(), //이름
 					memberPhoneNumber : $("#memberPhoneNumber").val(), //폰넘버
-					memberEmail : $("#memberEmail").val(), //폰넘버
+				 	memberEmail : $("#memberEmail").val(), //폰넘버
 					 message : "" 
 			}	
 
@@ -126,33 +119,8 @@ button:hover {
 				dataType : "json",
 				cache : false,
 				success : function(param) {
-				 	/*  $(".idpwResult").text(`${param.message}`)   */
-					 		/* $.ajax({
-								url : urls, //request URL
-								type :"POST", //전송방식
-								contentType : "application/json",
-								data : param, //서버에  전송할 데이터
-								beforeSend : function(xhr) {
-									//데이터를 전송하기전에 헤더에 csrf값을 설정
-									xhr.setRequestHeader(header,token);
-								},
-								dataType : "json",
-								cache : false,
-								success : function(params) {
-									
-								},
-								error : function(jqXHR, status, error) {
-									if (jqXHR.status == '401'){
-										alert('비밀번호 값을 제대로 입력해주세요.')
-										location.href = '/account/search';	
-								}else{
-									//에러메세지 출력(ResponseEntity에서 받아온 값을 출력해준다.)
-									alert(jqXHR.responseText); 
-								}
-								}	
-							});  */
-					
-					//location.href = '/';
+				 	  $(".idpwResult").text(`${param.message}`)   
+		
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401'){

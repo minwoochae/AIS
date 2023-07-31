@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+	
+<!-- 각 페이지의 CSS가 작성될 위치 -->
+<th:block layout:fragment="css">
+	<style>
+		.filedError{
+			color: #bd2130;
+		}
+	</style>
+</th:block>
+
+<div layout:fragment="content">
+	<div class="bg-light py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 mb-0">
+					<a href="/">Home</a> <span class="mx-2 mb-0">/</span> 
+					<strong class="text-black">분양 정보 수정</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="site-section">
+		<div class="container">
+			<div class="row" style="width: 60%; justify-content: center; align-items: center; margin: 0 auto;">
+				<div class="col-md-12">
+					<h2 class="h3 mb-3 text-black">분양 정보 수정</h2>
+					<div class="p-3 p-lg-5 border">
+						<form role="form" th:action="@{'/admin/ai/' + ${aiFormDto.id}}" method="post" enctype="multipart/form-data" 
+							th:object="${aiFormDto}" name="aiForm">
+
+							<input type="hidden" th:field="*{id}"/>
+
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="name" class="text-black">이름</label>
+									<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect Data</p>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="email" class="text-black">이메일(아이디)</label>
+									<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect Data</p>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="phoneNumber" class="text-black">휴대폰 번호</label> 
+									<input type="text" class="form-control" placeholder="휴대폰 번호 입력" th:field="*{phoneNumber}">
+									<p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="fieldError">Incorrect Data</p>
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label th:for="password" class="text-black">비밀빈호 수정</label> 
+                                    <textarea rows=10 class="form-control" placeholder="동물 상세정보" id="floatingTextarea" th:field="*{aiDetail}"></textarea>
+                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{aiDetail}" class="fieldError">Incorrect Data</p>
+								</div>
+							</div>
+							
+							
+							<div class="form-group row" th:if="${not #lists.isEmpty(aiFormDto.aiImgDtoList)}" th:each="aiImgDto, status: ${aiFormDto.aiImgDtoList}">
+								<div class="col-md-12">
+								 	<label for="formFile" class="form-label" 
+  									th:text="${not #strings.isEmpty(aiImgDto.oriImgName)} 
+  										? ${aiImgDto.oriImgName} : '동물이미지' + ${status.index+1}"></label>
+  									<input type="hidden" name="aiImgIds" th:value="${aiImgDto.id}">
+  									<input class="form-control" type="file" id="aiImgFile" name="aiImgFile">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-12 d-flex justify-content-center">
+									<button type="button" onclick="beforeSubmit()" class="btn btn-primary mb-3" style="width:150px;">분양 정보 수정</button>
+								</div>
+							</div>
+
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<!-- 각 페이지의 스크립트가 작성될 위치 -->
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		$(document).ready(function(){
+			var errorMessage = [[${errorMessage}]];
+	    	if(errorMessage != null){
+	        	alert(errorMessage);
+	    	}
+
+		});
+	
+		
+
+
+	</script>
+</th:block>
+</html>

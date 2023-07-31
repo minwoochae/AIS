@@ -1,7 +1,13 @@
 package com.AIS.controller;
 
+import java.security.Principal;
+import java.security.SecureRandom;
 import java.util.*;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.sql.Update;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberservice;
 	private final PasswordEncoder passwordEncoder;
+	
+
 
 	// 문의하기
 	@GetMapping(value = "/members/qa")
@@ -103,48 +111,46 @@ public class MemberController {
 		
 		return "member/psLoginForm";
 	}
-
+	//비밀번호 찾고 난수생성기로 랜덤비밀번호 생성
 	@PostMapping("/account/pssearch")
 	@ResponseBody
-	public HashMap<String, String> memberps(@RequestBody Map<String, Object> psdata) {
+	public HashMap<String, String> memberps(
+		    @RequestBody Map<String, Object> psdata) {
+
 		String name = (String) psdata.get("memberName");
 		String phone = (String) psdata.get("memberPhoneNumber");
 		String email = (String) psdata.get("memberEmail");
 
 		HashMap<String, String> msg = new HashMap<>();
 		String pass = memberservice.passwordFind(name, phone, email);
+		//pass 암호화된 비밀번호
+		String ramdomps = memberservice.getRamdomPassword(12);
+	
 		
-		msg.put("message", pass);
+		// ramdomps 를 view에 출력
+		String password = memberservice.updatePassword(ramdomps, email,passwordEncoder);
+		 
+		msg.put("message", ramdomps);
+		
 		return msg;
 		
 	}
 	
+	@GetMapping("/checkPwd")
+    public String checkPwdView(){
+        return "member/checkPwd";
+    }
 	
-	// 분양 수정 페이지 화면 보기
-	@GetMapping(value = "/account/pssearch/{memberId}")
-	public String memberDtl(@Valid  MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
-			model.addAttribute("memberFormDto", new MemberFormDto());
+	   /** 회원 수정 전 비밀번호 확인 **/
+    @GetMapping("/rest/checkPwd")
+	@ResponseBody
+    public boolean checkUser(
+            @RequestParam String checkPassword, Model model , Principal principal ){
+    	String Id = principal.getName();
+    	
+    	
+    	 return memberservice.checkPassword(Id, checkPassword);
+    }
 
-		return "member/memberLoginForm";
-	}
-	
-		// 분양 수정
-		@PostMapping(value = "/account/pssearch/{memberId}")
-		public String memberUpdate(@Valid MemberFormDto memberFormDto, Model model,
-							     BindingResult bindingResult) {
-			if(bindingResult.hasErrors()) {
-				return "/account/pssearch";
-			}
-			
-			try {
-				memberservice.updateMember(memberFormDto);
-			} catch (Exception e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "분양 수정 중 에러가 발생했습니다.");
-				return "/account/pssearch";
-			}
-			
-			return "member/memberLoginForm";
-		}
 
 }

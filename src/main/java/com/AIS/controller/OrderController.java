@@ -35,7 +35,6 @@ public class OrderController {
 	public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
 			BindingResult bindingResult , Principal principal){
 		//Principal: 로그인한 사용자의 정보를 가져올수 있다.
-		
 		if(bindingResult.hasErrors()) {
 			StringBuilder sb = new StringBuilder();
 			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
