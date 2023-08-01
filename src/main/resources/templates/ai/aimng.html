@@ -61,8 +61,8 @@
 						      </td>
 						      <td th:text="${ai.aiSellStatus}"></td>
 						      <td th:text="${ai.createdBy}"></td>
-				        <td th:text="${ai.regtime}"></td> 
-					<!-- 	       <td th:text="${#temporals.format(ai.regtime, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+				      <!--   <td th:text="${ai.regtime}"></td>  -->
+					       <td th:text="${#temporals.format(ai.regtime, 'yyyy-MM-dd HH:mm:ss')}"></td> 
 						        <td>
 						      	 	<button type="button" class="btn btn-danger waves-effect waves-light" th:id="${ai.id}" th:value="${ai.id}" th:onclick="'javascript:deleteAi(' + ${ai.id} +')'">삭제하기</button>
 						      </td> 

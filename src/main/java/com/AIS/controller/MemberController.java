@@ -28,8 +28,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberservice;
 	private final PasswordEncoder passwordEncoder;
-	
-
 
 	// 문의하기
 	@GetMapping(value = "/members/qa")
@@ -108,14 +106,14 @@ public class MemberController {
 	@GetMapping(value = "/account/pssearch")
 	public String search_ps(Model model) {
 		model.addAttribute("memberFormDto", new MemberFormDto());
-		
+
 		return "member/psLoginForm";
 	}
-	//비밀번호 찾고 난수생성기로 랜덤비밀번호 생성
+
+	// 비밀번호 찾고 난수생성기로 랜덤비밀번호 생성
 	@PostMapping("/account/pssearch")
 	@ResponseBody
-	public HashMap<String, String> memberps(
-		    @RequestBody Map<String, Object> psdata) {
+	public HashMap<String, String> memberps(@RequestBody Map<String, Object> psdata) {
 
 		String name = (String) psdata.get("memberName");
 		String phone = (String) psdata.get("memberPhoneNumber");
@@ -123,34 +121,67 @@ public class MemberController {
 
 		HashMap<String, String> msg = new HashMap<>();
 		String pass = memberservice.passwordFind(name, phone, email);
-		//pass 암호화된 비밀번호
+		// pass 암호화된 비밀번호
 		String ramdomps = memberservice.getRamdomPassword(12);
-	
-		
-		// ramdomps 를 view에 출력
-		String password = memberservice.updatePassword(ramdomps, email,passwordEncoder);
-		 
-		msg.put("message", ramdomps);
-		
-		return msg;
-		
-	}
-	
-	@GetMapping("/checkPwd")
-    public String checkPwdView(){
-        return "member/checkPwd";
-    }
-	
-	   /** 회원 수정 전 비밀번호 확인 **/
-    @GetMapping("/rest/checkPwd")
-	@ResponseBody
-    public boolean checkUser(
-            @RequestParam String checkPassword, Model model , Principal principal ){
-    	String Id = principal.getName();
-    	
-    	
-    	 return memberservice.checkPassword(Id, checkPassword);
-    }
 
+		// ramdomps 를 view에 출력
+		String password = memberservice.updatePassword(ramdomps, email, passwordEncoder);
+
+		msg.put("message", ramdomps);
+
+		return msg;
+
+	}
+
+	@GetMapping("/checkPwd")
+	public String checkPwdView() {
+		return "member/checkPwd";
+	}
+
+	/** 회원 수정 전 비밀번호 확인 **/
+	@GetMapping("/rest/checkPwd")
+	@ResponseBody
+	public boolean checkUser(@RequestParam String checkPassword, Model model, Principal principal) {
+		String Id = principal.getName();
+
+		return memberservice.checkPassword(Id, checkPassword);
+	}
+
+	@GetMapping("/member/EditMember/new")
+	public String EditMembers(@Valid MemberFormDto memberFormDto, Model model ,String email) {
+		
+		
+		
+		  try {
+			  
+		  model.addAttribute("memberFormDto", memberFormDto); 
+		  System.out.println(memberFormDto.getId());
+		  } 
+		  catch (Exception e) {
+		  e.printStackTrace(); model.addAttribute("errorMessage",
+		  "회원 수정 페이지를 불러오는 중 에러가 발생했습니다."); }
+		  
+		
+		return "/member/EditMember";
+	}
+
+	// 비밀번호 찾고 난수생성기로 랜덤비밀번호 생성
+	@PostMapping(value = "/member/{memberId}")
+	public String aiUpdate(@Valid MemberFormDto memberFormDto, Model model,
+						     BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "member/EditMember";
+		}
+		
+		try {
+			memberservice.updateMember(memberFormDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "분양 수정 중 에러가 발생했습니다.");
+			return "ai/aiForm";
+		}
+		
+		return "redirect:/";
+	}
 
 }

@@ -1,11 +1,9 @@
 package com.AIS.Dto;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
-import com.AIS.entity.Ai;
 import com.AIS.entity.Member;
 
 import jakarta.validation.constraints.Email;
@@ -38,6 +36,11 @@ public class MemberFormDto {
 	
 	private static ModelMapper modelMapper = new ModelMapper();
 	
+	
+	public Member createMember() {
+		return modelMapper.map(this , Member.class);
+	}
+
 	//entity -> dto로 바꿈
 	public static MemberFormDto of(Member member) {
 		return modelMapper.map(member, MemberFormDto.class);

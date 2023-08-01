@@ -54,16 +54,15 @@ public class Member extends BaseEntity {
 		
 		return member;
 	}
-	/*
-	 * public static Member createps(MemberFormDto memberFormDto, PasswordEncoder
-	 * passwordEncoder) { Member member = new Member();
-	 * member.setName(memberFormDto.getName());
-	 * member.setEmail(memberFormDto.getEmail());
-	 * member.setPhoneNumber(memberFormDto.getPhoneNumber());
-	 * member.setPassword(memberFormDto.getPassword());
-	 * 
-	 * return member; }
-	 */
+	public void editmembers(MemberFormDto memberFormDto,PasswordEncoder passwordEncoder) {
+			String password = passwordEncoder.encode(memberFormDto.getPassword());
+			this.password = password;
+			this.name = memberFormDto.getName();
+			this.address = memberFormDto.getAddress();
+			this.phoneNumber = memberFormDto.getPhoneNumber();
+			this.email = memberFormDto.getEmail();
+			
+		}
 	
 	public  void updateMember(MemberFormDto memberFormDto) {
 		this.password = memberFormDto.getPassword();
