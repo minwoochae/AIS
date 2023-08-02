@@ -85,24 +85,34 @@ public class MemberService implements UserDetailsService {
 		System.out.println(member.getPassword());
 		return member.getPassword();
 	}
+	public String  findMember(String email ) {
+		Member member = memberRepository.findByEmail(email);
+		if (member == null) {
+			return "일치하는 사용자가 없습니다.";
+		}
+		return member.getEmail();
+	}
+	
+	public Member findByEmail(String email) {
+		return memberRepository.findByEmail(email);
+	}
 
 	// 비번 수정
-	public String updateMember(MemberFormDto memberFormDto ) throws Exception {
+	public Long updateMember(MemberFormDto memberFormDto ) throws Exception {
 		// 1.ai 앤티티 가져와서 바꾼다.
-		Member members = memberRepository.findByPassword(memberFormDto.getEmail());
+		Member members = memberRepository.findById(memberFormDto.getId())
+				.orElseThrow(EntityNotFoundException::new);
 
 		members.updateMember(memberFormDto);
 
-		return memberFormDto.getPassword(); // 변경한 ai의 id 리턴
+		return members.getId(); // 변경한 ai의 id 리턴
 	}
 
 	// 동물 정보 가져오기
 	@Transactional(readOnly = true) 
-	public MemberFormDto getmemberDtl(Long memberId) {
-
-		Member member = memberRepository.findById(memberId)
-										.orElseThrow(EntityNotFoundException::new);
-
+	public MemberFormDto getmemberDtl(String email) {
+		Member member = memberRepository.findByEmail(email);
+		
 		MemberFormDto memberFormDto = MemberFormDto.of(member);
 
 		return memberFormDto;
@@ -159,16 +169,16 @@ public class MemberService implements UserDetailsService {
 
     	return matches;
     }
-    
-	public Long getEmail(Long memberId) {
-		Member member = memberRepository.findById(memberId)
-				.orElseThrow(EntityNotFoundException::new);
-
-MemberFormDto memberFormDto = MemberFormDto.of(member);
-
-return memberFormDto;
+	
+	public Long editmembers(MemberFormDto memberFormDto ,PasswordEncoder passwordEncoder) throws Exception{
+		
+		Member member = memberRepository.findById(memberFormDto.getId())
+										.orElseThrow(EntityNotFoundException::new);
+		member.editmembers(memberFormDto, passwordEncoder); //update
+		
+		
+		return member.getId();
 	}
-
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// 사용자가 입력한 email이 DB에 있는지 쿼리문을 사용한다.
