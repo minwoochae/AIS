@@ -160,8 +160,8 @@ public class MemberController {
 	 
 
 	@GetMapping("/member/EditMember")
-	public String EditMembers(Model model, pre) {
-		MemberFormDto memberFormDto = memberservice.getmemberDtl()
+	public String EditMembers(Model model , Principal principal) {
+		MemberFormDto memberFormDto = memberservice.getmemberDtl();
 		model.addAttribute("memberFormDto",new MemberFormDto());
 		model.addAttribute("member", member);
 		
