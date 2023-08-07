@@ -163,7 +163,7 @@ public class MemberController {
 	public String EditMembers(Model model , Principal principal) {
 		MemberFormDto memberFormDto = memberservice.getmemberDtl();
 		model.addAttribute("memberFormDto",new MemberFormDto());
-		model.addAttribute("member", member);
+		/* model.addAttribute("member", member); */
 		
 		return "member/EditMember";
 	}
