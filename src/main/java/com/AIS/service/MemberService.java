@@ -108,10 +108,9 @@ public class MemberService implements UserDetailsService {
 		return members.getId(); // 변경한 ai의 id 리턴
 	}
 
-	// 동물 정보 가져오기
 	@Transactional(readOnly = true) 
-	public MemberFormDto getmemberDtl(String email) {
-		Member member = memberRepository.findByEmail(email);
+	public MemberFormDto getmemberDtl(Long memberId) {
+		Optional<Member> member = memberRepository.findById(memberId);
 		
 		MemberFormDto memberFormDto = MemberFormDto.of(member);
 

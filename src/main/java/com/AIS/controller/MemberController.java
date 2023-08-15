@@ -1,23 +1,17 @@
 package com.AIS.controller;
 
 import java.security.Principal;
-import java.security.SecureRandom;
 import java.util.*;
 
-import org.apache.commons.lang3.RandomStringUtils;
-import org.hibernate.sql.Update;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.AIS.Dto.*;
 import com.AIS.entity.Member;
-import com.AIS.repository.MemberRepository;
 import com.AIS.service.MemberService;
 
 import jakarta.validation.Valid;
@@ -92,10 +86,7 @@ public class MemberController {
 	public HashMap<String, String> members(@RequestBody Map<String, Object> data) {
 		String name = (String) data.get("memberName");
 		String phone = (String) data.get("memberPhoneNumber");
-		/*
-		 * Member foundMember = memberRepository.findByNameAndPhoneNumber( name ,
-		 * phoneNumber);
-		 */
+	
 		HashMap<String, String> msg = new HashMap<>();
 		String email = memberservice.emailFind(name, phone);
 
@@ -155,15 +146,24 @@ public class MemberController {
 			return "member/checkPwd";
 		}
 		
-		return "/member/EditMember";
+		return "/member/EditMember/" + member.getId();
 	} 
 	 
 
-	@GetMapping("/member/EditMember")
-	public String EditMembers(Model model , Principal principal) {
-		MemberFormDto memberFormDto = memberservice.getmemberDtl();
-		model.addAttribute("memberFormDto",new MemberFormDto());
-		/* model.addAttribute("member", member); */
+	
+	/*
+	@GetMapping("/member/EditMember/memberId" )
+	public String EditMembers(@PathVariable("memberId") Long memberId , Model model) {
+		try {
+			MemberFormDto memberFormDto = memberservice.getmemberDtl(memberId);
+			model.addAttribute("memberFormDto",memberFormDto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("memberFormDto", new MemberFormDto());
+			return "member/checkPwd";
+		}
+	
 		
 		return "member/EditMember";
 	}
@@ -185,6 +185,7 @@ public class MemberController {
 		}
 
 		return "redirect:/";
-	}
+	}  */
+
 
 }

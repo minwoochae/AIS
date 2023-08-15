@@ -1,6 +1,8 @@
 package com.AIS.Dto;
 
 
+import java.util.Optional;
+
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
@@ -42,7 +44,7 @@ public class MemberFormDto {
 	}
 
 	//entity -> dto로 바꿈
-	public static MemberFormDto of(Member member) {
+	public static MemberFormDto of(Optional<Member> member) {
 		return modelMapper.map(member, MemberFormDto.class);
 	}
 	
