@@ -8,7 +8,7 @@ public class VetController {
 
 		@GetMapping(value = "/vet")
 		public String about() {
-			return "/veterinarian/vet";
+			return "veterinarian/vet";
 		}
 		
 

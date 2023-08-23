@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PackageController {
 	@GetMapping(value="/sitterpackage")
 	public String sitterpackage(){
-		return "/sitterpackagemain/sitterpackage";
+		return "sitterpackagemain/sitterpackage";
 	}
 }

@@ -146,7 +146,7 @@ public class MemberController {
 			return "member/checkPwd";
 		}
 		
-		return "/member/EditMember/" + member.getId();
+		return "member/EditMember/" + member.getId();
 	} 
 	 
 

@@ -1,5 +1,6 @@
 package com.AIS.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +17,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class AiImgService {
-	private String aiImgLocation = "C:/ais/ai";
+	
+	
+	@Value("${aiImgLocation}")
+	private String aiImgLocation;
+	
+	/* private String aiImgLocation = "C:/ais/ai"; */
 	
 	private final AiImgRepository  aiImgRepository;
 	private final FileService fileService;

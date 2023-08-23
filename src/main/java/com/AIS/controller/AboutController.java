@@ -8,7 +8,7 @@ public class AboutController {
 	
 	@GetMapping(value = "/about")
 	public String about() {
-		return "/aboutmain/about";
+		return "aboutmain/about";
 	}
 	
 
