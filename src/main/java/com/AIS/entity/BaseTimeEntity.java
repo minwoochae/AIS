@@ -14,7 +14,7 @@ import lombok.*;
 @MappedSuperclass //부모 클래스를 상속받는 자식 클래스한테 매핑정보를 제공하기 위해 사용
 @Getter
 @Setter
-public class BaseTimeEntity {
+public abstract class BaseTimeEntity {
 	@CreatedDate
 	@Column(updatable =  false)
 	private LocalDateTime regtime;
