@@ -109,8 +109,8 @@ public class MemberService implements UserDetailsService {
 	}
 
 	@Transactional(readOnly = true) 
-	public MemberFormDto getmemberDtl(Long memberId) {
-		Optional<Member> member = memberRepository.findById(memberId);
+	public MemberFormDto getmemberDtl(String email) {
+		Member member = memberRepository.findByEmail(email);
 		
 		MemberFormDto memberFormDto = MemberFormDto.of(member);
 

@@ -146,16 +146,16 @@ public class MemberController {
 			return "member/checkPwd";
 		}
 		
-		return "/member/EditMember/" + member.getId();
+		return "member/EditMember/" + member.getId();
 	} 
 	 
 
 	
-	/*
-	@GetMapping("/member/EditMember/memberId" )
-	public String EditMembers(@PathVariable("memberId") Long memberId , Model model) {
+	
+	@GetMapping("/member/EditMember" )
+	public String EditMembers(@Valid PasswordDto passwordDto,Principal principal,Model model) {
 		try {
-			MemberFormDto memberFormDto = memberservice.getmemberDtl(memberId);
+			MemberFormDto memberFormDto = memberservice.getmemberDtl(principal.getName());
 			model.addAttribute("memberFormDto",memberFormDto);
 			
 		} catch (Exception e) {
@@ -185,7 +185,7 @@ public class MemberController {
 		}
 
 		return "redirect:/";
-	}  */
+	}  
 
 
 }
