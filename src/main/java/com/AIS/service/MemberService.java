@@ -109,14 +109,14 @@ public class MemberService implements UserDetailsService {
 	}
 
 	@Transactional(readOnly = true) 
-	public MemberFormDto getmemberDtl(String email) {
-		Member member = memberRepository.findByEmail(email);
-		
+	public MemberFormDto getmemberDtl(Long memberId) {
+		Optional<Member> member = memberRepository.findById(memberId);
+
 		MemberFormDto memberFormDto = MemberFormDto.of(member);
 
 		return memberFormDto;
 	}
-	
+
 	
     public String getRamdomPassword(int size) {
         char[] charSet = new char[] {
